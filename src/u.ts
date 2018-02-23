@@ -5,37 +5,28 @@ declare let S: number;
 
 let l: number[][];
 let v: number[];
-let x: number;
-let f: number[];
+let r, j, x, p, i, n;
 
 export function U(t) {
-  if (!t) {
-    f = R(4);
-    l = [f.map(_ => random(99))];
-    v = f.map(_ => random(1, 3));
-    x = 0;
-  }
+  r = random;
+  if (!t)
+    for (j = x = 0, l = [(p = [])], v = []; t < 4; v[t++] = r(1, 3))
+      p[t] = r(99);
   clear();
   l.map(p => (<any>line)(...p));
-  l.unshift(
-    f.map(i => {
-      const n = l[0][i] + v[i];
-      if (n < 0 || n > 99) {
-        v[i] *= -1;
-        Y(n + 200, 0.01);
-      }
-      return n;
-    })
+  for (
+    p = [(i = 0)];
+    i < 4;
+    v[i++] *= n < 0 || n > 99 ? (Y(n + 200, 0.01), -1) : 1
+  )
+    p[i] = n = l[j % 5][i] + v[i];
+  l[++j % 5] = p;
+  rect(
+    (x = get(x, 50)[3]
+      ? (Y(99, 1), (S = 0))
+      : M && ++x > 98 ? (Y(500, 0.1), !++S) : x),
+    49,
+    3,
+    3
   );
-  l.splice(5);
-  if (M && ++x > 98) {
-    S++;
-    x = 0;
-    Y(500, 0.1);
-  }
-  if (get(x, 50)[3] > 0) {
-    x = S = 0;
-    Y(99, 1);
-  }
-  rect(x, 49, 3, 3);
 }
