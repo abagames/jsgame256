@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Write a JavaScript game in 256 letters",
   "scripts": {
-    "start": "node devserver.js"
+    "start": "node devserver.js",
+    "build":
+      "webpack && uglifyjs ./docs/bundle.js -o ./docs/_u.js && node postprocess.js"
   },
   "author": "ABA",
   "license": "MIT",
@@ -14,6 +16,7 @@
     "html-webpack-externals-plugin": "^3.7.0",
     "html-webpack-plugin": "^2.30.1",
     "typescript": "^2.7.2",
+    "uglify-es": "^3.3.9",
     "webpack": "^3.11.0",
     "webpack-dev-middleware": "^2.0.6",
     "webpack-hot-middleware": "^2.21.0"
