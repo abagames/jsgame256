@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "86dfc7abf373c522ede7"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "fd95ec83257f24c08bc1"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -753,12 +753,15 @@ w.setup = () => {
             type: "square"
         }
     }).chain(new Tone.Volume(-40), Tone.Master);
-    w.Y = synth.triggerAttackRelease.bind(synth);
-    w.R = range;
+    w.N = synth.triggerAttackRelease.bind(synth);
+    w.R = random;
+    w.A = range;
     w.S = 0;
 };
 w.draw = () => {
     w.M = mouseIsPressed;
+    w.X = mouseX;
+    w.Y = mouseY;
     u_1.U(ticks / 60);
     ticks++;
     text(w.S, 0, 10);
@@ -774,20 +777,19 @@ w.draw = () => {
 Object.defineProperty(exports, "__esModule", { value: true });
 let l;
 let v;
-let r, j, x, p, i, n;
+let j, x, p, i, n;
 function U(t) {
-    r = random;
     if (!t)
-        for (j = x = 0, l = [(p = [])], v = []; t < 4; v[t++] = r(1, 3))
-            p[t] = r(99);
+        for (j = x = 0, l = [(p = [])], v = []; t < 4; v[t++] = R(1, 3))
+            p[t] = R(99);
     clear();
     l.map(p => line(...p));
-    for (p = [(i = 0)]; i < 4; v[i++] *= n < 0 || n > 99 ? (Y(n + 200, 0.01), -1) : 1)
+    for (p = [(i = 0)]; i < 4; v[i++] *= n < 0 || n > 99 ? (N(n + 200, 0.01), -1) : 1)
         p[i] = n = l[j % 5][i] + v[i];
     l[++j % 5] = p;
     rect((x = get(x, 50)[3]
-        ? (Y(99, 1), (S = 0))
-        : M && ++x > 98 ? (Y(500, 0.1), !++S) : x), 49, 3, 3);
+        ? (N(99, 1), (S = 0))
+        : M && ++x > 98 ? (N(500, 0.1), !++S) : x), 49, 3, 3);
 }
 exports.U = U;
 

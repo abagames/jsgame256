@@ -15,13 +15,16 @@ w.setup = () => {
       type: "square"
     }
   }).chain(new Tone.Volume(-40), Tone.Master);
-  w.Y = synth.triggerAttackRelease.bind(synth);
-  w.R = range;
+  w.R = random;
+  w.N = synth.triggerAttackRelease.bind(synth);
+  w.A = range;
   w.S = 0;
 };
 
 w.draw = () => {
   w.M = mouseIsPressed;
+  w.X = mouseX;
+  w.Y = mouseY;
   U(ticks / 60);
   ticks++;
   text(w.S, 0, 10);
