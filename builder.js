@@ -10,10 +10,12 @@ console.log(`\nBuild: ${title}.html`);
 
 const bundle = fs.readFileSync("./tmp/bundle.js", "utf-8");
 const u = shorten(bundle);
+const l = u.split("\n")[1];
 
-const setup_draw = boot
+const setupDraw = boot
   .substr(boot.indexOf("let ticks = 0;"))
-  .replace(/w\./g, "");
+  .replace(/w\./g, "")
+  .replace('sourceText.innerText = "', `sourceText.innerText = "${l}`);
 
 const template = fs.readFileSync("./tmp/index.html", "utf-8");
 const toneStr = 'Tone.min.js"></script>';
@@ -30,12 +32,21 @@ index = `${index.substr(
 ${u}
 </script>
 <script>
-${setup_draw}
+${setupDraw}
 </script>
 </body>
 </html>`.replace(
   "<title>jsgame256</title>",
   `<title>${title} - jsgame256</title>`
 );
+
+const headStr = "<head>";
+const headIndex = index.indexOf(headStr) + headStr.length;
+
+index = `${index.substr(0, headIndex)}
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="${title} - jsgame256 (${l.length} / 256)" />
+<meta name="twitter:description" content="${l}" />
+${index.substr(headStr)}`;
 
 fs.writeFileSync(`./docs/${title}.html`, index);

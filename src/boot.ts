@@ -8,6 +8,7 @@ let ticks = 0;
 let isEmptySoundPlayed = false;
 let canvasBack;
 let scoreText;
+let sourceText;
 let isShowingScore = false;
 
 w.setup = () => {
@@ -20,28 +21,37 @@ w.setup = () => {
     stroke: "#263238"
   };
   document.body.style.background = "#FAFAFA";
-  const unselectableCss = `
+  const unselectableStyle = `
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
   -o-user-select: none;`;
   const canvasStyle = `
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-  width: 80vmin; height: 80vmin;`;
+  width: 72vmin; height: 72vmin;`;
   canvasBack = document.createElement("div");
-  canvasBack.style = canvasStyle + unselectableCss;
+  canvasBack.style = canvasStyle + unselectableStyle;
   canvasBack.style.background = colors.background;
   document.body.appendChild(canvasBack);
   const p5Canvas = createCanvas(100, 100);
   p5Canvas.canvas.style = canvasStyle;
   fill(colors.background);
   stroke(colors.stroke);
+  const textStyle = `
+  position: absolute; left: 50%; transform: translate(-50%, -50%);
+  font-family: 'Roboto Mono', monospace; color: ${colors.stroke};`;
   scoreText = document.createElement("div");
-  scoreText.style = `
-  position: absolute; left: 50%; top: 5%; transform: translate(-50%, -45%);
-  font-family: 'Roboto Mono', monospace; font-size: 200%; text-align: center;
-  color: ${colors.stroke}; ${unselectableCss}`;
+  scoreText.style =
+    "top: 90%; font-size: 200%; text-align: center;" +
+    textStyle +
+    unselectableStyle;
   document.body.appendChild(scoreText);
+  sourceText = document.createElement("div");
+  sourceText.style =
+    "top: 10%; width: 512px; text-align: left; word-break: break-all;" +
+    textStyle;
+  sourceText.innerText = "";
+  document.body.appendChild(sourceText);
   const synth = new Tone.PolySynth(4, Tone.Synth, {
     oscillator: {
       type: "square",
