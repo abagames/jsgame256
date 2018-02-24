@@ -1,9 +1,24 @@
-import { U } from "./sinebomb";
-
-import * as Tone from "tone";
-declare const range;
-
-const w: any = window;
+<!DOCTYPE html>
+<html>
+  <head>
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="sinebomb - jsgame256 (255 / 256)" />
+<meta name="twitter:description" content="clear(),t||(x=y=0,b=A(3).map(()=>[0,0])),y<0&&M&&(y=95,x=X),rect(x,y-=5,3,5),b.map(c=>{c[0]<=0&&A(6).map(i=>c[i]=R([1,1,33,99,.2,2][i])),rect(z=c[3]+sin(c[1]+=c[4])*c[2],w=c[0]+=c[5],9,3),abs(z-x)+abs(w-y)<19&&(c[0]=y=0,S++,N(222+z,.1)),w>99&&(S=c[0]=0)})" />
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>sinebomb - jsgame256</title>
+  </head>
+  <body>
+  <script type="text/javascript" src="https://unpkg.com/p5@0.6.0/lib/p5.min.js"></script><script type="text/javascript" src="https://unpkg.com/tone@0.11.11/build/Tone.min.js"></script>
+<script>var module = {exports:{}};</script><script type="text/javascript" src="https://unpkg.com/lodash.range@3.2.0/index.js"></script>
+<script>
+function U(t){
+clear(),t||(x=y=0,b=A(3).map(()=>[0,0])),y<0&&M&&(y=95,x=X),rect(x,y-=5,3,5),b.map(c=>{c[0]<=0&&A(6).map(i=>c[i]=R([1,1,33,99,.2,2][i])),rect(z=c[3]+sin(c[1]+=c[4])*c[2],w=c[0]+=c[5],9,3),abs(z-x)+abs(w-y)<19&&(c[0]=y=0,S++,N(222+z,.1)),w>99&&(S=c[0]=0)})
+}
+</script>
+<script>
 let ticks = 0;
 let isEmptySoundPlayed = false;
 let canvasBack;
@@ -11,7 +26,7 @@ let scoreText;
 let sourceText;
 let isShowingScore = false;
 
-w.setup = () => {
+setup = () => {
   const link = document.createElement("link");
   link.href = "https://fonts.googleapis.com/css?family=Roboto+Mono";
   link.rel = "stylesheet";
@@ -46,7 +61,7 @@ w.setup = () => {
   document.body.appendChild(scoreText);
   sourceText = document.createElement("div");
   sourceText.style = `top: 93%; width: 512px; text-align: left; word-break: break-all; ${textStyle}`;
-  sourceText.innerText = "";
+  sourceText.innerText = "clear(),t||(x=y=0,b=A(3).map(()=>[0,0])),y<0&&M&&(y=95,x=X),rect(x,y-=5,3,5),b.map(c=>{c[0]<=0&&A(6).map(i=>c[i]=R([1,1,33,99,.2,2][i])),rect(z=c[3]+sin(c[1]+=c[4])*c[2],w=c[0]+=c[5],9,3),abs(z-x)+abs(w-y)<19&&(c[0]=y=0,S++,N(222+z,.1)),w>99&&(S=c[0]=0)})";
   document.body.appendChild(sourceText);
   const synth = new Tone.PolySynth(4, Tone.Synth, {
     oscillator: {
@@ -54,10 +69,10 @@ w.setup = () => {
       partials: [0, 2, 3, 4]
     }
   }).chain(new Tone.Volume(-16), Tone.Master);
-  w.R = random;
-  w.N = synth.triggerAttackRelease.bind(synth);
-  w.A = range;
-  w.S = 0;
+  R = random;
+  N = synth.triggerAttackRelease.bind(synth);
+  A = range;
+  S = 0;
   document.addEventListener("touchstart", e => {
     e.preventDefault();
     if (isEmptySoundPlayed) {
@@ -76,16 +91,20 @@ w.setup = () => {
   });
 };
 
-w.draw = () => {
-  w.M = mouseIsPressed;
-  w.X = mouseX;
-  w.Y = mouseY;
+draw = () => {
+  M = mouseIsPressed;
+  X = mouseX;
+  Y = mouseY;
   U(ticks / 60);
   ticks++;
-  if (!isShowingScore && w.S !== 0) {
+  if (!isShowingScore && S !== 0) {
     isShowingScore = true;
   }
   if (isShowingScore) {
-    scoreText.innerText = w.S;
+    scoreText.innerText = S;
   }
 };
+
+</script>
+</body>
+</html>
