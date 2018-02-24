@@ -17,7 +17,12 @@ w.setup = () => {
   const link = document.createElement("link");
   link.href = "https://fonts.googleapis.com/css?family=Roboto+Mono";
   link.rel = "stylesheet";
-  document.body.appendChild(link);
+  document.head.appendChild(link);
+  const meta = document.createElement("meta");
+  meta.name = "viewport";
+  meta.content = `width=device-width, height=device-height, 
+  user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1`;
+  document.head.appendChild(meta);
   const colors = {
     background: "#ECEFF1",
     stroke: "#263238"
@@ -50,7 +55,8 @@ w.setup = () => {
   highScoreText.style = `top: 7%; left: 70%; text-align: center; ${textStyle}`;
   document.body.appendChild(highScoreText);
   sourceText = document.createElement("div");
-  sourceText.style = `top: 93%; left: 50%; width: 512px; text-align: left; word-break: break-all; ${textStyle}`;
+  sourceText.style = `top: 93%; left: 50%; width: 512px; 
+  text-align: left; word-break: break-all; ${textStyle}`;
   sourceText.innerText = "";
   document.body.appendChild(sourceText);
   const synth = new Tone.PolySynth(4, Tone.Synth, {

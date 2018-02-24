@@ -32,7 +32,12 @@ setup = () => {
   const link = document.createElement("link");
   link.href = "https://fonts.googleapis.com/css?family=Roboto+Mono";
   link.rel = "stylesheet";
-  document.body.appendChild(link);
+  document.head.appendChild(link);
+  const meta = document.createElement("meta");
+  meta.name = "viewport";
+  meta.content = `width=device-width, height=device-height, 
+  user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1`;
+  document.head.appendChild(meta);
   const colors = {
     background: "#ECEFF1",
     stroke: "#263238"
@@ -65,7 +70,8 @@ setup = () => {
   highScoreText.style = `top: 7%; left: 70%; text-align: center; ${textStyle}`;
   document.body.appendChild(highScoreText);
   sourceText = document.createElement("div");
-  sourceText.style = `top: 93%; left: 50%; width: 512px; text-align: left; word-break: break-all; ${textStyle}`;
+  sourceText.style = `top: 93%; left: 50%; width: 512px; 
+  text-align: left; word-break: break-all; ${textStyle}`;
   sourceText.innerText = "clear(),t||(x=y=0,b=A(3).map(()=>[0,0])),y<0&&M&&(y=95,x=X),rect(x,y-=5,3,5),b.map(c=>{c[0]<=0&&A(6).map(i=>c[i]=R([1,1,33,99,.2,2][i])),rect(z=c[3]+sin(c[1]+=c[4])*c[2],w=c[0]+=c[5],9,3),abs(z-x)+abs(w-y)<19&&(c[0]=y=0,S++,N(222+z,.1)),w>99&&(S=c[0]=0)})";
   document.body.appendChild(sourceText);
   const synth = new Tone.PolySynth(4, Tone.Synth, {
