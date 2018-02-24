@@ -10,6 +10,8 @@ let canvasBack;
 let scoreText;
 let sourceText;
 let isShowingScore = false;
+let highScore = 0;
+let highScoreText;
 
 w.setup = () => {
   const link = document.createElement("link");
@@ -38,14 +40,17 @@ w.setup = () => {
   fill(colors.background);
   stroke(colors.stroke);
   const textStyle = `
-  position: absolute; left: 50%; transform: translate(-50%, -50%);
+  position: absolute; transform: translate(-50%, -50%);
   font-family: 'Roboto Mono', monospace; color: ${colors.stroke};
   ${unselectableStyle}`;
   scoreText = document.createElement("div");
-  scoreText.style = `top: 7%; font-size: 200%; text-align: center; ${textStyle}`;
+  scoreText.style = `top: 7%; left: 50%; font-size: 200%; text-align: center; ${textStyle}`;
   document.body.appendChild(scoreText);
+  highScoreText = document.createElement("div");
+  highScoreText.style = `top: 7%; left: 70%; text-align: center; ${textStyle}`;
+  document.body.appendChild(highScoreText);
   sourceText = document.createElement("div");
-  sourceText.style = `top: 93%; width: 512px; text-align: left; word-break: break-all; ${textStyle}`;
+  sourceText.style = `top: 93%; left: 50%; width: 512px; text-align: left; word-break: break-all; ${textStyle}`;
   sourceText.innerText = "";
   document.body.appendChild(sourceText);
   const synth = new Tone.PolySynth(4, Tone.Synth, {
@@ -87,5 +92,9 @@ w.draw = () => {
   }
   if (isShowingScore) {
     scoreText.innerText = w.S;
+    if (w.S > highScore) {
+      highScore = w.S;
+      highScoreText.innerText = highScore;
+    }
   }
 };
