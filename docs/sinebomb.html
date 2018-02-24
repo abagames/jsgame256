@@ -33,11 +33,6 @@ setup = () => {
   link.href = "https://fonts.googleapis.com/css?family=Roboto+Mono";
   link.rel = "stylesheet";
   document.head.appendChild(link);
-  const meta = document.createElement("meta");
-  meta.name = "viewport";
-  meta.content = `width=device-width, height=device-height, 
-  user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1`;
-  document.head.appendChild(meta);
   const colors = {
     background: "#ECEFF1",
     stroke: "#263238"
@@ -84,28 +79,40 @@ setup = () => {
   N = synth.triggerAttackRelease.bind(synth);
   A = range;
   S = 0;
-  document.addEventListener("touchstart", e => {
-    e.preventDefault();
-    if (isEmptySoundPlayed) {
-      return;
-    }
-    const context = Tone.context;
-    const buffer = context.createBuffer(1, 1, context.sampleRate);
-    const source = context.createBufferSource();
-    source.buffer = buffer;
-    source.connect(context.destination);
-    source.start(0);
-    if (context.resume) {
-      context.resume();
-    }
-    isEmptySoundPlayed = true;
-  });
-  document.addEventListener("touchmove", e => {
-    e.preventDefault();
-  });
-  document.addEventListener("touchend", e => {
-    e.preventDefault();
-  });
+  document.addEventListener(
+    "touchstart",
+    e => {
+      e.preventDefault();
+      if (isEmptySoundPlayed) {
+        return;
+      }
+      const context = Tone.context;
+      const buffer = context.createBuffer(1, 1, context.sampleRate);
+      const source = context.createBufferSource();
+      source.buffer = buffer;
+      source.connect(context.destination);
+      source.start(0);
+      if (context.resume) {
+        context.resume();
+      }
+      isEmptySoundPlayed = true;
+    },
+    { passive: false }
+  );
+  document.addEventListener(
+    "touchmove",
+    e => {
+      e.preventDefault();
+    },
+    { passive: false }
+  );
+  document.addEventListener(
+    "touchend",
+    e => {
+      e.preventDefault();
+    },
+    { passive: false }
+  );
 };
 
 draw = () => {
