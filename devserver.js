@@ -6,6 +6,12 @@ const fetch = require("node-fetch");
 const path = require("path");
 const shorten = require(path.resolve(__dirname, "shortener.js"));
 
+const app = express();
+const config = require("./webpack.config.js");
+config.devtool = "source-map";
+config.entry.push("webpack-hot-middleware/client?reload=true");
+const compiler = webpack(config);
+
 const port = 8080;
 
 function reporter(middlewareOptions, options) {
@@ -27,7 +33,7 @@ function reporter(middlewareOptions, options) {
     } else if (stats.hasWarnings()) {
       message = "Compiled with warnings.";
     } else {
-      fetch(`http://localhost:${port}/bundle.js`)
+      fetch(`http://localhost:${port}/${config.output.filename}`)
         .then(res => res.text())
         .then(bundle => {
           shorten(bundle);
@@ -38,12 +44,6 @@ function reporter(middlewareOptions, options) {
     log.info("Compiling...");
   }
 }
-
-const app = express();
-const config = require("./webpack.config.js");
-config.devtool = "source-map";
-config.entry.push("webpack-hot-middleware/client?reload=true");
-const compiler = webpack(config);
 
 app.use(webpackDevMiddleware(compiler, { reporter }));
 app.use(webpackHotMiddleware(compiler));
