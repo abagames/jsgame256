@@ -6,12 +6,23 @@ declare const range;
 const w: any = window;
 let ticks = 0;
 let isEmptySoundPlayed = false;
+let scoreText;
+let isShowingScore = false;
 
 w.setup = () => {
+  const link = document.createElement("link");
+  link.href = "https://fonts.googleapis.com/css?family=Roboto+Mono";
+  link.rel = "stylesheet";
+  document.body.appendChild(link);
   const p5Canvas = createCanvas(100, 100);
   p5Canvas.canvas.style = `
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
   width: 80vmin; height: 80vmin;`;
+  scoreText = document.createElement("div");
+  scoreText.style = `
+  position: absolute; left: 50%; top: 5%; transform: translate(-50%, -45%);
+  font-family: 'Roboto Mono', monospace; font-size: 200%; text-align: center;`;
+  document.body.appendChild(scoreText);
   const synth = new Tone.PolySynth(4, Tone.Synth, {
     oscillator: {
       type: "square",
@@ -46,5 +57,10 @@ w.draw = () => {
   w.Y = mouseY;
   U(ticks / 60);
   ticks++;
-  text(w.S, 0, 10);
+  if (!isShowingScore && w.S !== 0) {
+    isShowingScore = true;
+  }
+  if (isShowingScore) {
+    scoreText.innerText = w.S;
+  }
 };
