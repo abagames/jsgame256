@@ -4,8 +4,7 @@
   "description": "Write a JavaScript game in 256 letters",
   "scripts": {
     "start": "node devserver.js",
-    "build":
-      "webpack && uglifyjs ./tmp/bundle.js -o ./tmp/_u.js && node postprocess.js"
+    "build": "webpack && node builder.js"
   },
   "author": "ABA",
   "license": "MIT",
@@ -15,6 +14,7 @@
     "express": "^4.16.2",
     "html-webpack-externals-plugin": "^3.7.0",
     "html-webpack-plugin": "^2.30.1",
+    "node-fetch": "^2.0.0",
     "typescript": "^2.7.2",
     "uglify-es": "^3.3.9",
     "webpack": "^3.11.0",
