@@ -54,17 +54,13 @@ setup = () => {
   stroke(colors.stroke);
   const textStyle = `
   position: absolute; left: 50%; transform: translate(-50%, -50%);
-  font-family: 'Roboto Mono', monospace; color: ${colors.stroke};`;
+  font-family: 'Roboto Mono', monospace; color: ${colors.stroke};
+  ${unselectableStyle}`;
   scoreText = document.createElement("div");
-  scoreText.style =
-    "top: 90%; font-size: 200%; text-align: center;" +
-    textStyle +
-    unselectableStyle;
+  scoreText.style = `top: 7%; font-size: 200%; text-align: center; ${textStyle}`;
   document.body.appendChild(scoreText);
   sourceText = document.createElement("div");
-  sourceText.style =
-    "top: 10%; width: 512px; text-align: left; word-break: break-all;" +
-    textStyle;
+  sourceText.style = `top: 93%; width: 512px; text-align: left; word-break: break-all; ${textStyle}`;
   sourceText.innerText = "if(!t)for(j=x=0,l=[p=[]],v=[];t<4;v[t++]=R(1,3))p[t]=R(99);for(clear(),l.map(p=>line(...p)),p=[i=0];i<4;v[i++]*=n<0||n>99?(N(n+200,.01),-1):1)p[i]=n=l[j%5][i]+v[i];l[++j%5]=p,rect(x=get(x,50)[3]?(N(99,1),S=0):M&&++x>98?(N(500,.1),!++S):x,49,3,3)";
   document.body.appendChild(sourceText);
   const synth = new Tone.PolySynth(4, Tone.Synth, {
