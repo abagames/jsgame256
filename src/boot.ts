@@ -1,4 +1,5 @@
-import { U } from "./u";
+import { U } from "./lineart";
+
 import * as Tone from "tone";
 declare const range;
 

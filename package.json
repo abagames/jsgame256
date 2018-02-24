@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node devserver.js",
     "build":
-      "webpack && uglifyjs ./docs/bundle.js -o ./docs/_u.js && node postprocess.js"
+      "webpack && uglifyjs ./tmp/bundle.js -o ./tmp/_u.js && node postprocess.js"
   },
   "author": "ABA",
   "license": "MIT",

@@ -7,7 +7,7 @@ const webpack = require("webpack");
 module.exports = {
   entry: ["./src/boot.ts"],
   output: {
-    path: path.resolve(__dirname, "docs"),
+    path: path.resolve(__dirname, "tmp"),
     filename: "bundle.js"
   },
   resolve: {
@@ -28,10 +28,8 @@ module.exports = {
     tone: "Tone"
   },
   plugins: [
-    new CleanWebpackPlugin(["docs"]),
-    new HtmlWebpackPlugin({
-      title: "jsgame256"
-    }),
+    new CleanWebpackPlugin(["tmp"]),
+    new HtmlWebpackPlugin({ title: "jsgame256" }),
     new HtmlWebpackExternalsPlugin({
       externals: [
         {
