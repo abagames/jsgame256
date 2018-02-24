@@ -5,6 +5,7 @@ declare const range;
 
 const w: any = window;
 let ticks = 0;
+let isEmptySoundPlayed = false;
 
 w.setup = () => {
   const p5Canvas = createCanvas(100, 100);
@@ -21,6 +22,22 @@ w.setup = () => {
   w.N = synth.triggerAttackRelease.bind(synth);
   w.A = range;
   w.S = 0;
+  document.addEventListener("touchstart", e => {
+    e.preventDefault();
+    if (isEmptySoundPlayed) {
+      return;
+    }
+    const context = Tone.context;
+    const buffer = context.createBuffer(1, 1, context.sampleRate);
+    const source = context.createBufferSource();
+    source.buffer = buffer;
+    source.connect(context.destination);
+    source.start(0);
+    if (context.resume) {
+      context.resume();
+    }
+    isEmptySoundPlayed = true;
+  });
 };
 
 w.draw = () => {
