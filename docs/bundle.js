@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "fd95ec83257f24c08bc1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c787059639dfa11a0fda"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -753,8 +753,8 @@ w.setup = () => {
             type: "square"
         }
     }).chain(new Tone.Volume(-40), Tone.Master);
-    w.N = synth.triggerAttackRelease.bind(synth);
     w.R = random;
+    w.N = synth.triggerAttackRelease.bind(synth);
     w.A = range;
     w.S = 0;
 };

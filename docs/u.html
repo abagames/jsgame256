@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>jsgame256</title>
+  </head>
+  <body>
+  <script type="text/javascript" src="https://unpkg.com/p5@0.6.0/lib/p5.min.js"></script><script type="text/javascript" src="https://unpkg.com/tone@0.11.11/build/Tone.min.js"></script>
+<script>var module = {exports:{}};</script><script type="text/javascript" src="https://unpkg.com/lodash.range@3.2.0/index.js"></script>
+<script>
+function U(t){
+if(!t)for(j=x=0,l=[p=[]],v=[];t<4;v[t++]=R(1,3))p[t]=R(99);clear();l.map(p=>line(...p));for(p=[i=0];i<4;v[i++]*=n<0||n>99?(N(n+200,.01),-1):1)p[i]=n=l[j%5][i]+v[i];l[++j%5]=p;rect(x=get(x,50)[3]?(N(99,1),S=0):M&&++x>98?(N(500,.1),!++S):x,49,3,3)
+}
+</script>
+<script>
+let ticks = 0;
+
+setup = () => {
+  const p5Canvas = createCanvas(100, 100);
+  p5Canvas.canvas.style = `
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 80vmin; height: 80vmin;`;
+  const synth = new Tone.Synth({
+    oscillator: {
+      type: "square"
+    }
+  }).chain(new Tone.Volume(-40), Tone.Master);
+  R = random;
+  N = synth.triggerAttackRelease.bind(synth);
+  A = range;
+  S = 0;
+};
+
+draw = () => {
+  M = mouseIsPressed;
+  X = mouseX;
+  Y = mouseY;
+  U(ticks / 60);
+  ticks++;
+  text(S, 0, 10);
+};
+
+</script>
+</body>
+</html>
