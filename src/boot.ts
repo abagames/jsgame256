@@ -79,6 +79,12 @@ w.setup = () => {
     }
     isEmptySoundPlayed = true;
   });
+  document.addEventListener("touchmove", e => {
+    e.preventDefault();
+  });
+  document.addEventListener("touchend", e => {
+    e.preventDefault();
+  });
 };
 
 w.draw = () => {
