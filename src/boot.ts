@@ -6,6 +6,7 @@ declare const range;
 const w: any = window;
 let ticks = 0;
 let isEmptySoundPlayed = false;
+let canvasBack;
 let scoreText;
 let isShowingScore = false;
 
@@ -14,14 +15,32 @@ w.setup = () => {
   link.href = "https://fonts.googleapis.com/css?family=Roboto+Mono";
   link.rel = "stylesheet";
   document.body.appendChild(link);
-  const p5Canvas = createCanvas(100, 100);
-  p5Canvas.canvas.style = `
+  const colors = {
+    background: "#ECEFF1",
+    stroke: "#263238"
+  };
+  document.body.style.background = "#FAFAFA";
+  const unselectableCss = `
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;`;
+  const canvasStyle = `
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
   width: 80vmin; height: 80vmin;`;
+  canvasBack = document.createElement("div");
+  canvasBack.style = canvasStyle + unselectableCss;
+  canvasBack.style.background = colors.background;
+  document.body.appendChild(canvasBack);
+  const p5Canvas = createCanvas(100, 100);
+  p5Canvas.canvas.style = canvasStyle;
+  fill(colors.background);
+  stroke(colors.stroke);
   scoreText = document.createElement("div");
   scoreText.style = `
   position: absolute; left: 50%; top: 5%; transform: translate(-50%, -45%);
-  font-family: 'Roboto Mono', monospace; font-size: 200%; text-align: center;`;
+  font-family: 'Roboto Mono', monospace; font-size: 200%; text-align: center;
+  color: ${colors.stroke}; ${unselectableCss}`;
   document.body.appendChild(scoreText);
   const synth = new Tone.PolySynth(4, Tone.Synth, {
     oscillator: {
