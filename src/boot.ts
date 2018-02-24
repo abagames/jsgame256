@@ -11,11 +11,12 @@ w.setup = () => {
   p5Canvas.canvas.style = `
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
   width: 80vmin; height: 80vmin;`;
-  const synth = new Tone.Synth({
+  const synth = new Tone.PolySynth(4, Tone.Synth, {
     oscillator: {
-      type: "square"
+      type: "square",
+      partials: [0, 2, 3, 4]
     }
-  }).chain(new Tone.Volume(-40), Tone.Master);
+  }).chain(new Tone.Volume(-16), Tone.Master);
   w.R = random;
   w.N = synth.triggerAttackRelease.bind(synth);
   w.A = range;
