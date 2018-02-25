@@ -15,7 +15,7 @@ const l = u.split("\n")[1];
 const setupDraw = boot
   .substr(boot.indexOf("let ticks = 0;"))
   .replace(/w\./g, "")
-  .replace('sourceText.innerText = "', `sourceText.innerText = "${l}`);
+  .replace('sourceText.innerText = ""', `sourceText.innerText = '${l}'`);
 
 const template = fs.readFileSync("./tmp/index.html", "utf-8");
 const toneStr = 'Tone.min.js"></script>';
@@ -45,8 +45,8 @@ const headIndex = index.indexOf(headStr) + headStr.length;
 
 index = `${index.substr(0, headIndex)}
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="${title} - jsgame256 (${l.length} / 256)" />
-<meta name="twitter:description" content="${l}" />
+<meta name="twitter:title" content='${title} - jsgame256 (${l.length} / 256)' />
+<meta name="twitter:description" content='${l}' />
 ${index.substr(headStr)}`;
 
 fs.writeFileSync(`./docs/${title}.html`, index);
