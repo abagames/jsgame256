@@ -1,10 +1,9 @@
-import { U } from "./inoutcar";
+import { U } from "./springcar";
 
 import * as Tone from "tone";
 declare const range;
 
 const w: any = window;
-let ticks = 0;
 let isEmptySoundPlayed = false;
 let canvasBack;
 let scoreText;
@@ -65,6 +64,7 @@ w.setup = () => {
   w.N = synth.triggerAttackRelease.bind(synth);
   w.A = range;
   w.S = 0;
+  w.T = 0;
   document.addEventListener(
     "touchstart",
     e => {
@@ -105,8 +105,8 @@ w.draw = () => {
   w.M = mouseIsPressed;
   w.X = mouseX;
   w.Y = mouseY;
-  U(ticks / 60);
-  ticks++;
+  U();
+  w.T++;
   if (!isShowingScore && w.S !== 0) {
     isShowingScore = true;
   }
