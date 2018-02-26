@@ -11,36 +11,35 @@ declare const R: (min: number | any[], max?: number) => any;
 declare const N: (note: number | string, duration: number | string) => void;
 // _.range()
 declare const A: (start: number, end?: number, step?: number) => number[];
+// You can use all p5.js functions
 
+// variables
 // score
 declare let S: number;
+// ticks
+declare let T: number;
 
 let b: number[][];
 let x, y, z, w;
 
-export function U(t) {
+export function U() {
   clear();
-  if (!t) {
-    x = y = 0;
-    b = A(3).map(() => [0, 0]);
+  if (!T) {
+    b = A(3).map(() => [(x = y = 0), 0]);
   }
-  if (y < 0 && M) {
-    y = 95;
-    x = X;
-  }
-  rect(x, (y -= 5), 3, 5);
+  rect(y < 0 && M ? ((y = 95), (x = X)) : x, (y -= 5), 3, 5);
   b.map(c => {
     if (c[0] <= 0) {
-      A(6).map(i => (c[i] = R([1, 1, 33, 99, 0.2, 2][i])));
+      A(6).map(i => (c[i] = R([1, 1, 33, 99, 0.2, T / 999][i])));
     }
     rect((z = c[3] + sin((c[1] += c[4])) * c[2]), (w = c[0] += c[5]), 9, 3);
     if (abs(z - x) + abs(w - y) < 19) {
       c[0] = y = 0;
       S++;
-      N(222 + z, 0.1);
+      N(222, 0.1);
     }
     if (w > 99) {
-      S = c[0] = 0;
+      S = c[0] = T = 0;
     }
   });
 }

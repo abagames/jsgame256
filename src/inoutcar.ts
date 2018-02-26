@@ -11,33 +11,36 @@ declare const R: (min: number | any[], max?: number) => any;
 declare const N: (note: number | string, duration: number | string) => void;
 // _.range()
 declare const A: (start: number, end?: number, step?: number) => number[];
+// You can use all p5.js functions
 
+// variables
 // score
 declare let S: number;
+// ticks
+declare let T: number;
 
 let b: number[][];
-let d;
+let d, x, y, r;
 
-export function U(t) {
+export function U() {
   clear();
-  if (!t) {
-    b = A(5).map(() => [0, (d = 1)]);
+  if (!T) {
+    b = A(5).map(() => [0, (d = r = 1)]);
   }
   for (const c of b) {
     if (c[0] <= 0) {
       c[1] = R((c[0] = 99));
-      c[2] = R(0.5, 2);
+      c[2] = R(0.5, 1 + T / 999);
       S++;
-      N(c[1] + 200, 0.01);
+      N(400, 0.01);
     }
     text("🐢", (c[0] -= c[2]), c[1]);
   }
-  const r = M ? 40 : 10;
-  const x = sin((d += M ? 0.05 : 0.1)) * r + 49;
-  const y = cos(d) * r + 49;
-  if (get(x, y)[3] > 0) {
-    N(500, 0.2);
-    b = A(5).map(() => [(S = 0), 0]);
+  r = max(10, min(40, r + (M ? 1 : -1)));
+  if (get((x = sin((d += 0.05)) * r + 39), (y = cos(d) * r + 49))[3]) {
+    S = 0;
+    T = -1;
+    N(300, 0.1);
   }
   text("🚗", x - 4, y + 2);
 }

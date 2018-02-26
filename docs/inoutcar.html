@@ -2,8 +2,8 @@
 <html>
   <head>
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content='inoutcar - jsgame256 (252 / 256)' />
-<meta name="twitter:description" content='clear(),t||(b=A(5).map(()=>[0,d=1]));for(c of b)c[0]<=0&&(c[1]=R(c[0]=99),c[2]=R(.5,2),S++,N(c[1]+200,.01)),text("🐢",c[0]-=c[2],c[1]);r=M?40:10,x=sin(d+=M?.05:.1)*r+49,y=cos(d)*r+49;get(x,y)[3]>0&&(N(500,.2),b=A(5).map(()=>[S=0,0])),text("🚗",x-4,y+2)' />
+<meta name="twitter:title" content='inoutcar - jsgame256 (248 / 256)' />
+<meta name="twitter:description" content='clear(),T||(b=A(5).map(()=>[0,d=r=1]));for(c of b)c[0]<=0&&(c[1]=R(c[0]=99),c[2]=R(.5,1+T/999),S++,N(400,.01)),text("🐢",c[0]-=c[2],c[1]);r=max(10,min(40,r+(M?1:-1))),get(x=sin(d+=.05)*r+39,y=cos(d)*r+49)[3]&&(S=0,T=-1,N(300,.1)),text("🚗",x-4,y+2)' />
 <!DOCTYPE html>
 <html>
   <head>
@@ -14,125 +14,12 @@
   <script type="text/javascript" src="https://unpkg.com/p5@0.6.0/lib/p5.min.js"></script><script type="text/javascript" src="https://unpkg.com/tone@0.11.11/build/Tone.min.js"></script>
 <script>var module = {exports:{}};</script><script type="text/javascript" src="https://unpkg.com/lodash.range@3.2.0/index.js"></script>
 <script>
-function U(t){
-clear(),t||(b=A(5).map(()=>[0,d=1]));for(c of b)c[0]<=0&&(c[1]=R(c[0]=99),c[2]=R(.5,2),S++,N(c[1]+200,.01)),text("🐢",c[0]-=c[2],c[1]);r=M?40:10,x=sin(d+=M?.05:.1)*r+49,y=cos(d)*r+49;get(x,y)[3]>0&&(N(500,.2),b=A(5).map(()=>[S=0,0])),text("🚗",x-4,y+2)
+function U(){
+clear(),T||(b=A(5).map(()=>[0,d=r=1]));for(c of b)c[0]<=0&&(c[1]=R(c[0]=99),c[2]=R(.5,1+T/999),S++,N(400,.01)),text("🐢",c[0]-=c[2],c[1]);r=max(10,min(40,r+(M?1:-1))),get(x=sin(d+=.05)*r+39,y=cos(d)*r+49)[3]&&(S=0,T=-1,N(300,.1)),text("🚗",x-4,y+2)
 }
 </script>
 <script>
-let ticks = 0;
-let isEmptySoundPlayed = false;
-let canvasBack;
-let scoreText;
-let sourceText;
-let isShowingScore = false;
-let highScore = 0;
-let highScoreText;
 
-setup = () => {
-  const link = document.createElement("link");
-  link.href = "https://fonts.googleapis.com/css?family=Roboto+Mono";
-  link.rel = "stylesheet";
-  document.head.appendChild(link);
-  const colors = {
-    background: "#ECEFF1",
-    stroke: "#263238"
-  };
-  document.body.style.background = "#FAFAFA";
-  const unselectableStyle = `
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -o-user-select: none;`;
-  const canvasStyle = `
-  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-  width: 72vmin; height: 72vmin;`;
-  canvasBack = document.createElement("div");
-  canvasBack.style = canvasStyle + unselectableStyle;
-  canvasBack.style.background = colors.background;
-  document.body.appendChild(canvasBack);
-  const p5Canvas = createCanvas(100, 100);
-  p5Canvas.canvas.style = canvasStyle;
-  fill(colors.background);
-  stroke(colors.stroke);
-  textSize(7);
-  const textStyle = `
-  position: absolute; transform: translate(-50%, -50%);
-  font-family: 'Roboto Mono', monospace; color: ${colors.stroke};
-  ${unselectableStyle}`;
-  scoreText = document.createElement("div");
-  scoreText.style = `top: 7%; left: 50%; font-size: 200%; text-align: center; ${textStyle}`;
-  document.body.appendChild(scoreText);
-  highScoreText = document.createElement("div");
-  highScoreText.style = `top: 7%; left: 70%; text-align: center; ${textStyle}`;
-  document.body.appendChild(highScoreText);
-  sourceText = document.createElement("div");
-  sourceText.style = `top: 93%; left: 50%; width: 512px; 
-  text-align: left; word-break: break-all; ${textStyle}`;
-  sourceText.innerText = 'clear(),t||(b=A(5).map(()=>[0,d=1]));for(c of b)c[0]<=0&&(c[1]=R(c[0]=99),c[2]=R(.5,2),S++,N(c[1]+200,.01)),text("🐢",c[0]-=c[2],c[1]);r=M?40:10,x=sin(d+=M?.05:.1)*r+49,y=cos(d)*r+49;get(x,y)[3]>0&&(N(500,.2),b=A(5).map(()=>[S=0,0])),text("🚗",x-4,y+2)';
-  document.body.appendChild(sourceText);
-  const synth = new Tone.PolySynth(4, Tone.Synth, {
-    oscillator: {
-      type: "square",
-      partials: [0, 2, 3, 4]
-    }
-  }).chain(new Tone.Volume(-16), Tone.Master);
-  R = random;
-  N = synth.triggerAttackRelease.bind(synth);
-  A = range;
-  S = 0;
-  document.addEventListener(
-    "touchstart",
-    e => {
-      e.preventDefault();
-      if (isEmptySoundPlayed) {
-        return;
-      }
-      const context = Tone.context;
-      const buffer = context.createBuffer(1, 1, context.sampleRate);
-      const source = context.createBufferSource();
-      source.buffer = buffer;
-      source.connect(context.destination);
-      source.start(0);
-      if (context.resume) {
-        context.resume();
-      }
-      isEmptySoundPlayed = true;
-    },
-    { passive: false }
-  );
-  document.addEventListener(
-    "touchmove",
-    e => {
-      e.preventDefault();
-    },
-    { passive: false }
-  );
-  document.addEventListener(
-    "touchend",
-    e => {
-      e.preventDefault();
-    },
-    { passive: false }
-  );
-};
-
-draw = () => {
-  M = mouseIsPressed;
-  X = mouseX;
-  Y = mouseY;
-  U(ticks / 60);
-  ticks++;
-  if (!isShowingScore && S !== 0) {
-    isShowingScore = true;
-  }
-  if (isShowingScore) {
-    scoreText.innerText = S;
-    if (S > highScore) {
-      highScore = S;
-      highScoreText.innerText = highScore;
-    }
-  }
-};
 
 </script>
 </body>

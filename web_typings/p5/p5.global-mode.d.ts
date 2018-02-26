@@ -1391,13 +1391,13 @@ declare function map(
  * Determines the largest value in a sequence of numbers, and then returns
  * that value.
  */
-declare function max(n0: number | any[]): number;
+declare function max(n0: number | any[], n1?: number): number;
 
 /**
  * Determines the smallest value in a sequence of numbers, and then returns
  * that value.
  */
-declare function min(n0: number | any[]): number;
+declare function min(n0: number | any[], n1?: number): number;
 
 /**
  * Normalizes a number from another range into a value between 0 and 1.
