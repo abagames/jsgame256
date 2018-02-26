@@ -19,7 +19,120 @@ clear(),T||(s=A(9).map(i=>[10*i]),y=v=0),d=1+T/999,s.map(u=>text("🔩",u[0]=u[0
 }
 </script>
 <script>
+let isEmptySoundPlayed = false;
+let canvasBack;
+let scoreText;
+let sourceText;
+let isShowingScore = false;
+let highScore = 0;
+let highScoreText;
 
+setup = () => {
+  const link = document.createElement("link");
+  link.href = "https://fonts.googleapis.com/css?family=Roboto+Mono";
+  link.rel = "stylesheet";
+  document.head.appendChild(link);
+  const colors = {
+    background: "#ECEFF1",
+    stroke: "#263238"
+  };
+  document.body.style.background = "#FAFAFA";
+  const unselectableStyle = `
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;`;
+  const canvasStyle = `
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 72vmin; height: 72vmin;`;
+  canvasBack = document.createElement("div");
+  canvasBack.style = canvasStyle + unselectableStyle;
+  canvasBack.style.background = colors.background;
+  document.body.appendChild(canvasBack);
+  const p5Canvas = createCanvas(100, 100);
+  p5Canvas.canvas.style = canvasStyle;
+  fill(colors.background);
+  stroke(colors.stroke);
+  textSize(7);
+  const textStyle = `
+  position: absolute; transform: translate(-50%, -50%);
+  font-family: 'Roboto Mono', monospace; color: ${colors.stroke};
+  ${unselectableStyle}`;
+  scoreText = document.createElement("div");
+  scoreText.style = `top: 7%; left: 50%; font-size: 200%; text-align: center; ${textStyle}`;
+  document.body.appendChild(scoreText);
+  highScoreText = document.createElement("div");
+  highScoreText.style = `top: 7%; left: 70%; text-align: center; ${textStyle}`;
+  document.body.appendChild(highScoreText);
+  sourceText = document.createElement("div");
+  sourceText.style = `top: 93%; left: 50%; width: 512px; 
+  text-align: left; word-break: break-all; ${textStyle}`;
+  sourceText.innerText = 'clear(),T||(s=A(9).map(i=>[10*i]),y=v=0),d=1+T/999,s.map(u=>text("🔩",u[0]=u[0]<99?u[0]+d:-R(30),80)),y+=v+=(M?.1:.2)*d,get(74,y)[3]+get(82,y)[3]>0&&(v=-1,y=72,S++,N(333,.1)),y>70&&v<1&&M&&(v=-3,N(444,.2)),y>95&&(S=y=T=0,N(222,.5)),text("🚗",75,y)';
+  document.body.appendChild(sourceText);
+  const synth = new Tone.PolySynth(4, Tone.Synth, {
+    oscillator: {
+      type: "square",
+      partials: [0, 2, 3, 4]
+    }
+  }).chain(new Tone.Volume(-16), Tone.Master);
+  R = random;
+  N = synth.triggerAttackRelease.bind(synth);
+  A = range;
+  S = 0;
+  T = 0;
+  document.addEventListener(
+    "touchstart",
+    e => {
+      e.preventDefault();
+      if (isEmptySoundPlayed) {
+        return;
+      }
+      const context = Tone.context;
+      const buffer = context.createBuffer(1, 1, context.sampleRate);
+      const source = context.createBufferSource();
+      source.buffer = buffer;
+      source.connect(context.destination);
+      source.start(0);
+      if (context.resume) {
+        context.resume();
+      }
+      isEmptySoundPlayed = true;
+    },
+    { passive: false }
+  );
+  document.addEventListener(
+    "touchmove",
+    e => {
+      e.preventDefault();
+    },
+    { passive: false }
+  );
+  document.addEventListener(
+    "touchend",
+    e => {
+      e.preventDefault();
+    },
+    { passive: false }
+  );
+};
+
+draw = () => {
+  M = mouseIsPressed;
+  X = mouseX;
+  Y = mouseY;
+  U();
+  T++;
+  if (!isShowingScore && S !== 0) {
+    isShowingScore = true;
+  }
+  if (isShowingScore) {
+    scoreText.innerText = S;
+    if (S > highScore) {
+      highScore = S;
+      highScoreText.innerText = highScore;
+    }
+  }
+};
 
 </script>
 </body>
