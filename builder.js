@@ -13,7 +13,7 @@ const u = shorten(bundle);
 const l = u.split("\n")[1];
 
 const setupDraw = boot
-  .substr(boot.indexOf("let ticks = 0;"))
+  .substr(boot.indexOf("let isEmptySoundPlayed = false;"))
   .replace(/w\./g, "")
   .replace('sourceText.innerText = ""', `sourceText.innerText = '${l}'`);
 
