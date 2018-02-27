@@ -5,6 +5,7 @@ const webpackHotMiddleware = require("webpack-hot-middleware");
 const fetch = require("node-fetch");
 const path = require("path");
 const shorten = require(path.resolve(__dirname, "shortener.js"));
+const builder = require(path.resolve(__dirname, "builder.js"));
 
 const app = express();
 const config = require("./webpack.config.js");
@@ -70,6 +71,9 @@ wss.on("connection", (ws, req) => {
   ws.on("message", message => {
     console.log(message);
     rl.question("REPL> ", answer => {
+      if (answer === ";b") {
+        builder.build();
+      }
       try {
         ws.send(answer);
       } catch (e) {

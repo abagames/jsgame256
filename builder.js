@@ -2,12 +2,17 @@ const webpack = require("webpack");
 const config = require("./webpack.config.js");
 const compiler = webpack(config);
 
-compiler.run((err, stats) => {
-  if (err != null) {
-    console.err(err);
-    return;
-  }
+module.exports.build = function() {
+  compiler.run((err, stats) => {
+    if (err != null) {
+      console.err(err);
+      return;
+    }
+    buildHtml();
+  });
+};
 
+function buildHtml() {
   const fs = require("fs");
   const boot = fs.readFileSync("./src/boot.ts", "utf-8");
   const title = boot.match(/import \* as g from ".\/([a-zA-Z0-9_.-]*)"/)[1];
@@ -58,4 +63,6 @@ ${setupDraw}
 ${index.substr(headStr)}`;
 
   fs.writeFileSync(`./docs/${title}.html`, index);
-});
+}
+
+module.exports.build();

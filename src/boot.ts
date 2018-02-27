@@ -12,18 +12,32 @@ function initRepl() {
   };
   ws.onmessage = m => {
     const data = m.data;
-    console.log(`[REPL] ${data}`);
-    let result;
-    try {
-      const evalResult = evalInContext(data, g);
+    if (data === ";b") {
+      ws.send(";BUILD");
+    } else if (data === ";p") {
+      pause();
+      ws.send(";PAUSE");
+    } else if (data === ";r") {
+      resume();
+      ws.send(";RESUME");
+    } else if (data === ";s") {
+      pause();
+      g.U();
+      ws.send(";STEP");
+    } else {
+      console.log(`[REPL] ${data}`);
+      let result;
       try {
-        result = JSON.stringify(evalResult);
-      } catch (e) {}
-    } catch (e) {
-      result = e;
+        const evalResult = evalInContext(data, g);
+        try {
+          result = JSON.stringify(evalResult);
+        } catch (e) {}
+      } catch (e) {
+        result = e;
+      }
+      console.log(result);
+      ws.send(result);
     }
-    console.log(result);
-    ws.send(result);
   };
   ws.onerror = e => {
     console.log(e);
@@ -34,6 +48,14 @@ function initRepl() {
 }
 
 initRepl();
+
+function pause() {
+  isUpdating = false;
+}
+
+function resume() {
+  isUpdating = true;
+}
 
 import * as Tone from "tone";
 declare const range;
@@ -46,6 +68,7 @@ let sourceText;
 let isShowingScore = false;
 let highScore = 0;
 let highScoreText;
+let isUpdating = true;
 
 w.setup = () => {
   const link = document.createElement("link");
@@ -140,7 +163,9 @@ w.draw = () => {
   w.M = mouseIsPressed;
   w.X = mouseX;
   w.Y = mouseY;
-  g.U();
+  if (isUpdating) {
+    g.U();
+  }
   w.T++;
   if (!isShowingScore && w.S !== 0) {
     isShowingScore = true;

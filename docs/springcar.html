@@ -26,6 +26,7 @@ let sourceText;
 let isShowingScore = false;
 let highScore = 0;
 let highScoreText;
+let isUpdating = true;
 
 setup = () => {
   const link = document.createElement("link");
@@ -120,7 +121,9 @@ draw = () => {
   M = mouseIsPressed;
   X = mouseX;
   Y = mouseY;
-  U();
+  if (isUpdating) {
+    U();
+  }
   T++;
   if (!isShowingScore && S !== 0) {
     isShowingScore = true;
