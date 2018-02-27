@@ -10,9 +10,7 @@ compiler.run((err, stats) => {
 
   const fs = require("fs");
   const boot = fs.readFileSync("./src/boot.ts", "utf-8");
-  const title = boot.match(
-    /import\s?{\s?U\s?}\s?from\s?".\/([a-zA-Z0-9_.-]*)"/
-  )[1];
+  const title = boot.match(/import \* as g from ".\/([a-zA-Z0-9_.-]*)"/)[1];
   console.log(`\nBuild: ${title}.html`);
 
   const path = require("path");
@@ -24,6 +22,7 @@ compiler.run((err, stats) => {
   const setupDraw = boot
     .substr(boot.indexOf("let isEmptySoundPlayed = false;"))
     .replace(/w\./g, "")
+    .replace("g.U()", "U()")
     .replace('sourceText.innerText = ""', `sourceText.innerText = '${l}'`);
 
   const template = fs.readFileSync("./tmp/index.html", "utf-8");

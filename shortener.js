@@ -5,6 +5,7 @@ module.exports = function shorten(bundle) {
   const u = _u.code
     .replace(/.*U=function\(\){/, "function U(){\n")
     .replace(/}},function\(module,exports\).*/, "\n}")
+    .replace(/exports./g, "")
     .replace(/(var |let |const )/g, "");
   const l = u.split("\n")[1];
   console.log(l);

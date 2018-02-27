@@ -23,8 +23,8 @@ declare let S: number;
 // ticks
 declare let T: number;
 
-let s: number[][];
-let y, v, d;
+export let s: number[][];
+export let y, v, d;
 
 export function U() {
   clear();

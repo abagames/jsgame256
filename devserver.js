@@ -51,3 +51,31 @@ app.use(webpackHotMiddleware(compiler));
 app.listen(port, function() {
   console.log(`webpack-dev-middleware listening on port ${port}`);
 });
+
+const WebSocket = require("ws");
+const readline = require("readline");
+
+const wss = new WebSocket.Server({ port: 8887 });
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+wss.on("connection", (ws, req) => {
+  const ra = req.connection.remoteAddress;
+  if (ra !== "127.0.0.1" && ra !== "::1") {
+    ws.close();
+  }
+  rl.write("\n");
+  ws.on("message", message => {
+    console.log(message);
+    rl.question("REPL> ", answer => {
+      try {
+        ws.send(answer);
+      } catch (e) {
+        console.log(`send failed: ${e}`);
+      }
+    });
+  });
+  ws.on("error", err => console.log(err));
+});

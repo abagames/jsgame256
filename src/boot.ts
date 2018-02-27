@@ -1,4 +1,39 @@
-import { U } from "./springcar";
+import * as g from "./springcar";
+
+function evalInContext(scr, context) {
+  return new Function("with(this) { return " + scr + "}").call(context);
+}
+
+function initRepl() {
+  console.log("set REPL settings");
+  const ws = new WebSocket("ws://localhost:8887");
+  ws.onopen = () => {
+    ws.send("REPL connecting to browser");
+  };
+  ws.onmessage = m => {
+    const data = m.data;
+    console.log(`[REPL] ${data}`);
+    let result;
+    try {
+      const evalResult = evalInContext(data, g);
+      try {
+        result = JSON.stringify(evalResult);
+      } catch (e) {}
+    } catch (e) {
+      result = e;
+    }
+    console.log(result);
+    ws.send(result);
+  };
+  ws.onerror = e => {
+    console.log(e);
+  };
+  window.addEventListener("beforeunload", () => {
+    ws.close();
+  });
+}
+
+initRepl();
 
 import * as Tone from "tone";
 declare const range;
@@ -105,7 +140,7 @@ w.draw = () => {
   w.M = mouseIsPressed;
   w.X = mouseX;
   w.Y = mouseY;
-  U();
+  g.U();
   w.T++;
   if (!isShowingScore && w.S !== 0) {
     isShowingScore = true;
