@@ -62,6 +62,8 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+let isWaitingBuild = false;
+
 wss.on("connection", (ws, req) => {
   const ra = req.connection.remoteAddress;
   if (ra !== "127.0.0.1" && ra !== "::1") {
@@ -69,10 +71,15 @@ wss.on("connection", (ws, req) => {
   }
   rl.write("\n");
   ws.on("message", message => {
-    console.log(message);
+    if (isWaitingBuild) {
+      builder.build(message);
+      isWaitingBuild = false;
+    } else {
+      console.log(message);
+    }
     rl.question("REPL> ", answer => {
       if (answer === "//b") {
-        builder.build();
+        isWaitingBuild = true;
       }
       try {
         ws.send(answer);

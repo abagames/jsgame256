@@ -4,6 +4,17 @@ function evalInContext(scr, context) {
   return new Function("with(this) { return " + scr + "}").call(context);
 }
 
+function captureCanvas() {
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = 200;
+  const context = canvas.getContext("2d");
+  context.fillStyle = colors.background;
+  context.fillRect(0, 0, 200, 200);
+  context.scale(2, 2);
+  context.drawImage(p5Canvas.canvas, 0, 0);
+  return canvas.toDataURL("image/png");
+}
+
 function initRepl() {
   console.log("set REPL settings");
   const ws = new WebSocket("ws://localhost:8887");
@@ -13,7 +24,7 @@ function initRepl() {
   ws.onmessage = m => {
     const data = m.data;
     if (data === "//b") {
-      ws.send("//BUILD");
+      ws.send(captureCanvas());
     } else if (data === "//p") {
       pause();
       ws.send("//PAUSE");
@@ -61,6 +72,11 @@ import * as Tone from "tone";
 declare const range;
 
 const w: any = window;
+const colors = {
+  background: "#ECEFF1",
+  stroke: "#263238"
+};
+let p5Canvas;
 let isEmptySoundPlayed = false;
 let canvasBack;
 let scoreText;
@@ -75,10 +91,6 @@ w.setup = () => {
   link.href = "https://fonts.googleapis.com/css?family=Roboto+Mono";
   link.rel = "stylesheet";
   document.head.appendChild(link);
-  const colors = {
-    background: "#ECEFF1",
-    stroke: "#263238"
-  };
   document.body.style.background = "#FAFAFA";
   const unselectableStyle = `
   user-select: none;
@@ -92,7 +104,7 @@ w.setup = () => {
   canvasBack.style = canvasStyle + unselectableStyle;
   canvasBack.style.background = colors.background;
   document.body.appendChild(canvasBack);
-  const p5Canvas = createCanvas(100, 100);
+  p5Canvas = createCanvas(100, 100);
   p5Canvas.canvas.style = canvasStyle;
   fill(colors.background);
   stroke(colors.stroke);
@@ -160,12 +172,13 @@ w.setup = () => {
 };
 
 w.draw = () => {
+  if (!isUpdating) {
+    return;
+  }
   w.M = mouseIsPressed;
   w.X = mouseX;
   w.Y = mouseY;
-  if (isUpdating) {
-    g.U();
-  }
+  g.U();
   w.T++;
   if (!isShowingScore && w.S !== 0) {
     isShowingScore = true;

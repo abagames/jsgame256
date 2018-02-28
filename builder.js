@@ -2,17 +2,17 @@ const webpack = require("webpack");
 const config = require("./webpack.config.js");
 const compiler = webpack(config);
 
-module.exports.build = function() {
+module.exports.build = function(captureDataUrl) {
   compiler.run((err, stats) => {
     if (err != null) {
       console.err(err);
       return;
     }
-    buildHtml();
+    buildHtml(captureDataUrl);
   });
 };
 
-function buildHtml() {
+function buildHtml(captureDataUrl) {
   const fs = require("fs");
   const boot = fs.readFileSync("./src/boot.ts", "utf-8");
   const title = boot.match(/import \* as g from ".\/([a-zA-Z0-9_.-]*)"/)[1];
@@ -60,6 +60,11 @@ ${setupDraw}
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content='${title} - jsgame256 (${l.length} / 256)' />
 <meta name="twitter:description" content='${l}' />
+${
+    captureDataUrl != null
+      ? `<meta name="twitter:image" content='${captureDataUrl}' />`
+      : ""
+  }
 ${index.substr(headStr)}`;
 
   fs.writeFileSync(`./docs/${title}.html`, index);
