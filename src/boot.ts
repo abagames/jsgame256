@@ -12,18 +12,18 @@ function initRepl() {
   };
   ws.onmessage = m => {
     const data = m.data;
-    if (data === ";b") {
-      ws.send(";BUILD");
-    } else if (data === ";p") {
+    if (data === "//b") {
+      ws.send("//BUILD");
+    } else if (data === "//p") {
       pause();
-      ws.send(";PAUSE");
-    } else if (data === ";r") {
+      ws.send("//PAUSE");
+    } else if (data === "//r") {
       resume();
-      ws.send(";RESUME");
-    } else if (data === ";s") {
+      ws.send("//RESUME");
+    } else if (data === "//s") {
       pause();
       g.U();
-      ws.send(";STEP");
+      ws.send("//STEP");
     } else {
       console.log(`[REPL] ${data}`);
       let result;

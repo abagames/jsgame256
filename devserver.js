@@ -71,7 +71,7 @@ wss.on("connection", (ws, req) => {
   ws.on("message", message => {
     console.log(message);
     rl.question("REPL> ", answer => {
-      if (answer === ";b") {
+      if (answer === "//b") {
         builder.build();
       }
       try {
