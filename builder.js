@@ -33,12 +33,13 @@ function buildHtml(captureDataUrl) {
   const bundle = fs.readFileSync("./tmp/bundle.js", "utf-8");
   const u = shorten(bundle);
   const l = u.split("\n")[1];
+  const el = l.replace(/\'/g, "'");
 
   const setupDraw = boot
     .substr(boot.indexOf("let isEmptySoundPlayed = false;"))
     .replace(/w\./g, "")
     .replace("g.U()", "U()")
-    .replace('sourceText.innerText = ""', `sourceText.innerText = '${l}'`);
+    .replace('sourceText.innerText = ""', `sourceText.innerText = '${el}'`);
 
   const template = fs.readFileSync("./tmp/index.html", "utf-8");
   const toneStr = 'Tone.min.js"></script>';
@@ -69,7 +70,7 @@ ${setupDraw}
   index = `${index.substr(0, headIndex)}
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content='${title} - jsgame256 (${l.length} / 256)' />
-<meta name="twitter:description" content='${l}' />
+<meta name="twitter:description" content='${el}' />
 ${
     captureDataUrl != null
       ? `<meta name="twitter:image" content='${imageUrl}${title}.png' />`
