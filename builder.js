@@ -24,7 +24,7 @@ function writeDataUrl(dataUrl, filename) {
 }
 
 function buildHtml(captureDataUrl) {
-  const boot = fs.readFileSync("./src/boot.ts", "utf-8");
+  const boot = fs.readFileSync("./src/_boot.ts", "utf-8");
   const title = boot.match(/import \* as g from ".\/([a-zA-Z0-9_.-]*)"/)[1];
   console.log(`\nBuild: ${title}.html`);
 
