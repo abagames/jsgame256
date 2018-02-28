@@ -1,3 +1,5 @@
+const imageUrl = "https://abagames.github.io/jsgame256/";
+
 const webpack = require("webpack");
 const config = require("./webpack.config.js");
 const compiler = webpack(config);
@@ -70,7 +72,7 @@ ${setupDraw}
 <meta name="twitter:description" content='${l}' />
 ${
     captureDataUrl != null
-      ? `<meta name="twitter:image" content='${title}.png' />`
+      ? `<meta name="twitter:image" content='${imageUrl}${title}.png' />`
       : ""
   }
 ${index.substr(headIndex)}`;
