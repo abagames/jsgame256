@@ -19,4 +19,6 @@ declare let S: number;
 // ticks
 declare let T: number;
 
-export function U() {}
+export function U() {
+  clear();
+}
