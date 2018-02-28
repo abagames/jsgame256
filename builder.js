@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const config = require("./webpack.config.js");
 const compiler = webpack(config);
+const fs = require("fs");
 
 module.exports.build = function(captureDataUrl) {
   compiler.run((err, stats) => {
@@ -12,8 +13,15 @@ module.exports.build = function(captureDataUrl) {
   });
 };
 
+function writeDataUrl(dataUrl, filename) {
+  const matches = dataUrl.match(/^data:.+\/(.+);base64,(.*)$/);
+  const ext = matches[1];
+  const data = matches[2];
+  const buffer = new Buffer(data, "base64");
+  fs.writeFileSync(`${filename}.${ext}`, buffer);
+}
+
 function buildHtml(captureDataUrl) {
-  const fs = require("fs");
   const boot = fs.readFileSync("./src/boot.ts", "utf-8");
   const title = boot.match(/import \* as g from ".\/([a-zA-Z0-9_.-]*)"/)[1];
   console.log(`\nBuild: ${title}.html`);
@@ -62,12 +70,16 @@ ${setupDraw}
 <meta name="twitter:description" content='${l}' />
 ${
     captureDataUrl != null
-      ? `<meta name="twitter:image" content='${captureDataUrl}' />`
+      ? `<meta name="twitter:image" content='${title}.png' />`
       : ""
   }
 ${index.substr(headIndex)}`;
 
   fs.writeFileSync(`./docs/${title}.html`, index);
+
+  if (captureDataUrl != null) {
+    writeDataUrl(captureDataUrl, `./docs/${title}`);
+  }
 }
 
 module.exports.build();
