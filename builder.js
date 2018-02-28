@@ -65,7 +65,7 @@ ${
       ? `<meta name="twitter:image" content='${captureDataUrl}' />`
       : ""
   }
-${index.substr(headStr)}`;
+${index.substr(headIndex)}`;
 
   fs.writeFileSync(`./docs/${title}.html`, index);
 }
