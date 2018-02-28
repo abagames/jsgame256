@@ -72,12 +72,8 @@ import * as Tone from "tone";
 declare const range;
 
 const w: any = window;
-const colors = {
-  background: "#ECEFF1",
-  stroke: "#263238"
-};
-let p5Canvas;
 let isEmptySoundPlayed = false;
+let p5Canvas;
 let canvasBack;
 let scoreText;
 let sourceText;
@@ -85,6 +81,10 @@ let isShowingScore = false;
 let highScore = 0;
 let highScoreText;
 let isUpdating = true;
+const colors = {
+  background: "#ECEFF1",
+  stroke: "#263238"
+};
 
 w.setup = () => {
   const link = document.createElement("link");
