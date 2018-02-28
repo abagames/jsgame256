@@ -4,9 +4,8 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content='sinebomb - jsgame256 (256 / 256)' />
 <meta name="twitter:description" content='clear(),T||(b=A(3).map(()=>[x=y=0,0])),rect(y<0&&M?(y=95,x=X):x,y-=5,3,5),b.map(c=>{c[0]<=0&&A(6).map(i=>c[i]=R([1,1,33,99,.2,T/999][i])),rect(z=c[3]+sin(c[1]+=c[4])*c[2],w=c[0]+=c[5],9,3),abs(z-x)+abs(w-y)<19&&(c[0]=y=0,S++,N(222,.1)),w>99&&(S=c[0]=T=0)})' />
-<!DOCTYPE html>
-<html>
-  <head>
+<meta name="twitter:image" content='https://abagames.github.io/jsgame256/sinebomb.png' />
+
     <meta charset="UTF-8">
     <title>sinebomb - jsgame256</title>
   </head>
@@ -20,22 +19,24 @@ clear(),T||(b=A(3).map(()=>[x=y=0,0])),rect(y<0&&M?(y=95,x=X):x,y-=5,3,5),b.map(
 </script>
 <script>
 let isEmptySoundPlayed = false;
+let p5Canvas;
 let canvasBack;
 let scoreText;
 let sourceText;
 let isShowingScore = false;
 let highScore = 0;
 let highScoreText;
+let isUpdating = true;
+const colors = {
+  background: "#ECEFF1",
+  stroke: "#263238"
+};
 
 setup = () => {
   const link = document.createElement("link");
   link.href = "https://fonts.googleapis.com/css?family=Roboto+Mono";
   link.rel = "stylesheet";
   document.head.appendChild(link);
-  const colors = {
-    background: "#ECEFF1",
-    stroke: "#263238"
-  };
   document.body.style.background = "#FAFAFA";
   const unselectableStyle = `
   user-select: none;
@@ -49,7 +50,7 @@ setup = () => {
   canvasBack.style = canvasStyle + unselectableStyle;
   canvasBack.style.background = colors.background;
   document.body.appendChild(canvasBack);
-  const p5Canvas = createCanvas(100, 100);
+  p5Canvas = createCanvas(100, 100);
   p5Canvas.canvas.style = canvasStyle;
   fill(colors.background);
   stroke(colors.stroke);
@@ -117,6 +118,9 @@ setup = () => {
 };
 
 draw = () => {
+  if (!isUpdating) {
+    return;
+  }
   M = mouseIsPressed;
   X = mouseX;
   Y = mouseY;
