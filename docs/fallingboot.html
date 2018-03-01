@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content='fallingboot - jsgame256 (243 / 256)' />
+<meta name="twitter:description" content='clear(),T||(x=X,m=A(p=9).map(_=>R(c=q=99))),c+=1+T/q,textSize(9+T/q),c>q&&(c=0,b=R(-9,q),S+=p,N(200+9*p,.1)),text("👢",b,c),textSize(p=9),m.map((n,i)=>{o=n+X-x;(get(o+2,85)[3]>0||o<0)&&(m[i]=999,p--),text("🕺",o,90)}),p<1&&(S=0,T=-1,N(180,.5))' />
+<meta name="twitter:image" content='https://abagames.github.io/jsgame256/fallingboot.png' />
+
+    <meta charset="UTF-8">
+    <title>fallingboot - jsgame256</title>
+  </head>
+  <body>
+  <script type="text/javascript" src="https://unpkg.com/p5@0.6.0/lib/p5.min.js"></script><script type="text/javascript" src="https://unpkg.com/tone@0.11.11/build/Tone.min.js"></script>
+<script>var module = {exports:{}};</script><script type="text/javascript" src="https://unpkg.com/lodash.range@3.2.0/index.js"></script>
+<script>
+function U(){
+clear(),T||(x=X,m=A(p=9).map(_=>R(c=q=99))),c+=1+T/q,textSize(9+T/q),c>q&&(c=0,b=R(-9,q),S+=p,N(200+9*p,.1)),text("👢",b,c),textSize(p=9),m.map((n,i)=>{o=n+X-x;(get(o+2,85)[3]>0||o<0)&&(m[i]=999,p--),text("🕺",o,90)}),p<1&&(S=0,T=-1,N(180,.5))
+}
+</script>
+<script>
+let isEmptySoundPlayed = false;
+let p5Canvas;
+let canvasBack;
+let scoreText;
+let sourceText;
+let isShowingScore = false;
+let highScore = 0;
+let highScoreText;
+let isUpdating = true;
+const colors = {
+  background: "#ECEFF1",
+  stroke: "#263238"
+};
+
+setup = () => {
+  const link = document.createElement("link");
+  link.href = "https://fonts.googleapis.com/css?family=Roboto+Mono";
+  link.rel = "stylesheet";
+  document.head.appendChild(link);
+  document.body.style.background = "#FAFAFA";
+  const unselectableStyle = `
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;`;
+  const canvasStyle = `
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 72vmin; height: 72vmin;`;
+  canvasBack = document.createElement("div");
+  canvasBack.style = canvasStyle + unselectableStyle;
+  canvasBack.style.background = colors.background;
+  document.body.appendChild(canvasBack);
+  p5Canvas = createCanvas(100, 100);
+  p5Canvas.canvas.style = canvasStyle;
+  fill(colors.background);
+  stroke(colors.stroke);
+  textSize(7);
+  const textStyle = `
+  position: absolute; transform: translate(-50%, -50%);
+  font-family: 'Roboto Mono', monospace; color: ${colors.stroke};
+  ${unselectableStyle}`;
+  scoreText = document.createElement("div");
+  scoreText.style = `top: 7%; left: 50%; font-size: 200%; text-align: center; ${textStyle}`;
+  document.body.appendChild(scoreText);
+  highScoreText = document.createElement("div");
+  highScoreText.style = `top: 7%; left: 70%; text-align: center; ${textStyle}`;
+  document.body.appendChild(highScoreText);
+  sourceText = document.createElement("div");
+  sourceText.style = `top: 93%; left: 50%; width: 512px; 
+  text-align: left; word-break: break-all; ${textStyle}`;
+  sourceText.innerText = 'clear(),T||(x=X,m=A(p=9).map(_=>R(c=q=99))),c+=1+T/q,textSize(9+T/q),c>q&&(c=0,b=R(-9,q),S+=p,N(200+9*p,.1)),text("👢",b,c),textSize(p=9),m.map((n,i)=>{o=n+X-x;(get(o+2,85)[3]>0||o<0)&&(m[i]=999,p--),text("🕺",o,90)}),p<1&&(S=0,T=-1,N(180,.5))';
+  document.body.appendChild(sourceText);
+  const synth = new Tone.PolySynth(4, Tone.Synth, {
+    oscillator: {
+      type: "square",
+      partials: [0, 2, 3, 4]
+    }
+  }).chain(new Tone.Volume(-16), Tone.Master);
+  R = random;
+  N = synth.triggerAttackRelease.bind(synth);
+  A = range;
+  S = 0;
+  T = 0;
+  document.addEventListener(
+    "touchstart",
+    e => {
+      e.preventDefault();
+      if (isEmptySoundPlayed) {
+        return;
+      }
+      const context = Tone.context;
+      const buffer = context.createBuffer(1, 1, context.sampleRate);
+      const source = context.createBufferSource();
+      source.buffer = buffer;
+      source.connect(context.destination);
+      source.start(0);
+      if (context.resume) {
+        context.resume();
+      }
+      isEmptySoundPlayed = true;
+    },
+    { passive: false }
+  );
+  document.addEventListener(
+    "touchmove",
+    e => {
+      e.preventDefault();
+    },
+    { passive: false }
+  );
+  document.addEventListener(
+    "touchend",
+    e => {
+      e.preventDefault();
+    },
+    { passive: false }
+  );
+};
+
+draw = () => {
+  if (!isUpdating) {
+    return;
+  }
+  M = mouseIsPressed;
+  X = mouseX;
+  Y = mouseY;
+  U();
+  T++;
+  if (!isShowingScore && S !== 0) {
+    isShowingScore = true;
+  }
+  if (isShowingScore) {
+    scoreText.innerText = S;
+    if (S > highScore) {
+      highScore = S;
+      highScoreText.innerText = highScore;
+    }
+  }
+};
+
+</script>
+</body>
+</html>
