@@ -29,14 +29,14 @@ declare let T: number;
 
 ## Samples
 
-<a href="https://abagames.github.io/jsgame256/springcar.html" style="float: left; border: solid 1px #888;"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/springcar.png" alt="springcar"></a>
+<a href="https://abagames.github.io/jsgame256/springcar.html"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/springcar.png" alt="springcar" align="left"></a>
 
-<a href="https://abagames.github.io/jsgame256/lineart.html" style="float: left; border: solid 1px #888;"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/lineart.png" alt="lineart"></a>
+<a href="https://abagames.github.io/jsgame256/lineart.html"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/lineart.png" alt="lineart" align="left"></a>
 
-<a href="https://abagames.github.io/jsgame256/fallingboot.html" style="float: left; border: solid 1px #888;"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/fallingboot.png" alt="fallingboot"></a>
+<a href="https://abagames.github.io/jsgame256/fallingboot.html"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/fallingboot.png" alt="fallingboot" align="left"></a>
 
-<a href="https://abagames.github.io/jsgame256/boxpress.html" style="float: left; border: solid 1px #888;"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/boxpress.png" alt="boxpress"></a>
+<a href="https://abagames.github.io/jsgame256/boxpress.html"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/boxpress.png" alt="boxpress" align="left"></a>
 
-<a href="https://abagames.github.io/jsgame256/inoutcar.html" style="float: left; border: solid 1px #888;"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/inoutcar.png" alt="inoutcar"></a>
+<a href="https://abagames.github.io/jsgame256/inoutcar.html"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/inoutcar.png" alt="inoutcar" align="left"></a>
 
-<a href="https://abagames.github.io/jsgame256/sinebomb.html" style="float: left; border: solid 1px #888;"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/sinebomb.png" alt="sinebomb"></a>
+<a href="https://abagames.github.io/jsgame256/sinebomb.html"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/sinebomb.png" alt="sinebomb" align="left"></a>
