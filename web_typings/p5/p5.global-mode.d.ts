@@ -281,7 +281,7 @@ declare function arc(
 /**
  * Draws an ellipse (oval) to the screen.
  */
-declare function ellipse(a: number, b: number, c: number, d: number): p5;
+declare function ellipse(a: number, b: number, c: number, d?: number): p5;
 
 /**
  * Draws a line (a direct path between two points) to the screen.
