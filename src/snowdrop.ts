@@ -20,7 +20,7 @@ declare let S: number;
 declare let T: number;
 
 export let r: number[][];
-export let v, q;
+export let v, q, d;
 
 export function U() {
   clear();
@@ -32,17 +32,16 @@ export function U() {
     v = R(-1, 1);
   }
   rect(X - 4, Y - 15, 9, 5);
-  r.map(s => {
+  r.map((s, i) => {
     if (s[1] > q) {
-      s[0] = R(0, q);
-      s[1] = R(-q, 0);
-      s[2] = R(-1, 1);
+      r[i] = [R(0, q), R(-q, 0), R(-1, 1)];
     }
     if (abs(s[0] - X) + abs(s[1] - Y + 12) < 9) {
       S++;
       s[1] = q;
     }
-    rect((s[0] += s[2] += v * 0.05), (s[1] += 0.5 + T / 999), 1, 1);
+    d = 1 + T / 999;
+    rect((s[0] += s[2] += v * d * 0.1), (s[1] += d), 1, 1);
   });
   if (get(X, Y)[3] > 0 || X < 0 || Y < 0) {
     T = -1;

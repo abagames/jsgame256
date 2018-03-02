@@ -3,7 +3,7 @@
   <head>
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content='snowdrop - jsgame256 (256 / 256)' />
-<meta name="twitter:description" content='clear(),q=99,T||(r=A(q).map(_=>[S=0,q])),T%q||(v=R(-1,1)),rect(X-4,Y-15,9,5),r.map(s=>{s[1]>q&&(s[0]=R(0,q),s[1]=R(-q,0),s[2]=R(-1,1)),abs(s[0]-X)+abs(s[1]-Y+12)<9&&(S++,s[1]=q),rect(s[0]+=s[2]+=.05*v,s[1]+=.5+T/999,1,1)}),(get(X,Y)[3]>0||X<0||Y<0)&&(T=-1)' />
+<meta name="twitter:description" content='clear(),q=99,T||(r=A(q).map(_=>[S=0,q])),T%q||(v=R(-1,1)),rect(X-4,Y-15,9,5),r.map((s,i)=>{s[1]>q&&(r[i]=[R(0,q),R(-q,0),R(-1,1)]),abs(s[0]-X)+abs(s[1]-Y+12)<9&&(S++,s[1]=q),d=1+T/999,rect(s[0]+=s[2]+=v*d*.1,s[1]+=d,1,1)}),(get(X,Y)[3]>0||X<0||Y<0)&&(T=-1)' />
 <meta name="twitter:image" content='https://abagames.github.io/jsgame256/snowdrop.png' />
 
     <meta charset="UTF-8">
@@ -14,7 +14,7 @@
 <script>var module = {exports:{}};</script><script type="text/javascript" src="https://unpkg.com/lodash.range@3.2.0/index.js"></script>
 <script>
 function U(){
-clear(),q=99,T||(r=A(q).map(_=>[S=0,q])),T%q||(v=R(-1,1)),rect(X-4,Y-15,9,5),r.map(s=>{s[1]>q&&(s[0]=R(0,q),s[1]=R(-q,0),s[2]=R(-1,1)),abs(s[0]-X)+abs(s[1]-Y+12)<9&&(S++,s[1]=q),rect(s[0]+=s[2]+=.05*v,s[1]+=.5+T/999,1,1)}),(get(X,Y)[3]>0||X<0||Y<0)&&(T=-1)
+clear(),q=99,T||(r=A(q).map(_=>[S=0,q])),T%q||(v=R(-1,1)),rect(X-4,Y-15,9,5),r.map((s,i)=>{s[1]>q&&(r[i]=[R(0,q),R(-q,0),R(-1,1)]),abs(s[0]-X)+abs(s[1]-Y+12)<9&&(S++,s[1]=q),d=1+T/999,rect(s[0]+=s[2]+=v*d*.1,s[1]+=d,1,1)}),(get(X,Y)[3]>0||X<0||Y<0)&&(T=-1)
 }
 </script>
 <script>
@@ -68,7 +68,7 @@ setup = () => {
   sourceText = document.createElement("div");
   sourceText.style = `top: 93%; left: 50%; width: 512px; 
   text-align: left; word-break: break-all; ${textStyle}`;
-  sourceText.innerText = 'clear(),q=99,T||(r=A(q).map(_=>[S=0,q])),T%q||(v=R(-1,1)),rect(X-4,Y-15,9,5),r.map(s=>{s[1]>q&&(s[0]=R(0,q),s[1]=R(-q,0),s[2]=R(-1,1)),abs(s[0]-X)+abs(s[1]-Y+12)<9&&(S++,s[1]=q),rect(s[0]+=s[2]+=.05*v,s[1]+=.5+T/999,1,1)}),(get(X,Y)[3]>0||X<0||Y<0)&&(T=-1)';
+  sourceText.innerText = 'clear(),q=99,T||(r=A(q).map(_=>[S=0,q])),T%q||(v=R(-1,1)),rect(X-4,Y-15,9,5),r.map((s,i)=>{s[1]>q&&(r[i]=[R(0,q),R(-q,0),R(-1,1)]),abs(s[0]-X)+abs(s[1]-Y+12)<9&&(S++,s[1]=q),d=1+T/999,rect(s[0]+=s[2]+=v*d*.1,s[1]+=d,1,1)}),(get(X,Y)[3]>0||X<0||Y<0)&&(T=-1)';
   document.body.appendChild(sourceText);
   const synth = new Tone.PolySynth(4, Tone.Synth, {
     oscillator: {
