@@ -29,6 +29,8 @@ declare let T: number;
 
 ## Samples
 
+Click the image to play.
+
 <a href="https://abagames.github.io/jsgame256/springcar.html"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/springcar.png" alt="springcar" align="left"></a>
 
 <a href="https://abagames.github.io/jsgame256/snowdrop.html"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/snowdrop.png" alt="snowdrop" align="left"></a>
