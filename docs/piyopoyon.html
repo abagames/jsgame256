@@ -3,7 +3,7 @@
   <head>
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content='piyopoyon - jsgame256 (249 / 256)' />
-<meta name="twitter:description" content='clear(),T||(y=v=0,q=a=b=99),fill(1),(a+=1+T/999)>q&&(a=-R(9),b=R(60),S++,N(550,.2)),rect(a,b-q,5,85),rect(a,b+15,5,q),fill(q),rect(0,max(10,min(90,Y)),q,q),get(84,y+=v+=.2)[0]==q&&(v=-4),y<0&&(v=4),1==get(84,y-3)[0]&&(S=T=0,N(220,1)),text("🐤",80,y)' />
+<meta name="twitter:description" content='clear(),T||(y=v=0,q=a=b=99),fill(1),(a+=1+T/999)>q&&(a=-R(9),b=R(60),S++),rect(a,b-q,5,85),rect(a,b+15,5,q),fill(q),rect(0,max(10,min(90,Y)),q,q),get(84,y+=v+=.2)[0]==q&&(v=-4,N(440,.1)),y<0&&(v=4),1==get(84,y-3)[0]&&(S=T=0,N(220,1)),text("🐤",80,y)' />
 <meta name="twitter:image" content='https://abagames.github.io/jsgame256/piyopoyon.png' />
 
     <meta charset="UTF-8">
@@ -14,7 +14,7 @@
 <script>var module = {exports:{}};</script><script type="text/javascript" src="https://unpkg.com/lodash.range@3.2.0/index.js"></script>
 <script>
 function U(){
-clear(),T||(y=v=0,q=a=b=99),fill(1),(a+=1+T/999)>q&&(a=-R(9),b=R(60),S++,N(550,.2)),rect(a,b-q,5,85),rect(a,b+15,5,q),fill(q),rect(0,max(10,min(90,Y)),q,q),get(84,y+=v+=.2)[0]==q&&(v=-4),y<0&&(v=4),1==get(84,y-3)[0]&&(S=T=0,N(220,1)),text("🐤",80,y)
+clear(),T||(y=v=0,q=a=b=99),fill(1),(a+=1+T/999)>q&&(a=-R(9),b=R(60),S++),rect(a,b-q,5,85),rect(a,b+15,5,q),fill(q),rect(0,max(10,min(90,Y)),q,q),get(84,y+=v+=.2)[0]==q&&(v=-4,N(440,.1)),y<0&&(v=4),1==get(84,y-3)[0]&&(S=T=0,N(220,1)),text("🐤",80,y)
 }
 </script>
 <script>
@@ -68,7 +68,7 @@ setup = () => {
   sourceText = document.createElement("div");
   sourceText.style = `top: 93%; left: 50%; width: 512px; 
   text-align: left; word-break: break-all; ${textStyle}`;
-  sourceText.innerText = 'clear(),T||(y=v=0,q=a=b=99),fill(1),(a+=1+T/999)>q&&(a=-R(9),b=R(60),S++,N(550,.2)),rect(a,b-q,5,85),rect(a,b+15,5,q),fill(q),rect(0,max(10,min(90,Y)),q,q),get(84,y+=v+=.2)[0]==q&&(v=-4),y<0&&(v=4),1==get(84,y-3)[0]&&(S=T=0,N(220,1)),text("🐤",80,y)';
+  sourceText.innerText = 'clear(),T||(y=v=0,q=a=b=99),fill(1),(a+=1+T/999)>q&&(a=-R(9),b=R(60),S++),rect(a,b-q,5,85),rect(a,b+15,5,q),fill(q),rect(0,max(10,min(90,Y)),q,q),get(84,y+=v+=.2)[0]==q&&(v=-4,N(440,.1)),y<0&&(v=4),1==get(84,y-3)[0]&&(S=T=0,N(220,1)),text("🐤",80,y)';
   document.body.appendChild(sourceText);
   const synth = new Tone.PolySynth(4, Tone.Synth, {
     oscillator: {

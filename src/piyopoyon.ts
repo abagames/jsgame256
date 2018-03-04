@@ -32,7 +32,6 @@ export function U() {
     a = -R(9);
     b = R(60);
     S++;
-    N(550, 0.2);
   }
   rect(a, b - q, 5, 85);
   rect(a, b + 15, 5, q);
@@ -40,6 +39,7 @@ export function U() {
   rect(0, max(10, min(90, Y)), q, q);
   if (get(84, (y += v += 0.2))[0] == q) {
     v = -4;
+    N(440, 0.1);
   }
   if (y < 0) {
     v = 4;
