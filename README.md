@@ -43,6 +43,8 @@ Click the image to play.
 
 <a href="https://abagames.github.io/jsgame256/boxpress.html"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/boxpress.png" alt="boxpress" align="left"></a>
 
+<a href="https://abagames.github.io/jsgame256/piyopoyon.html"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/piyopoyon.png" alt="piyopoyon" align="left"></a>
+
 <a href="https://abagames.github.io/jsgame256/sinebomb.html"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/sinebomb.png" alt="sinebomb"></a>
 
 ## Create your own game
