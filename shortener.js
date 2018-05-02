@@ -1,10 +1,16 @@
 const UglifyES = require("uglify-es");
 
 module.exports = function shorten(bundle) {
-  const _u = UglifyES.minify(bundle, { mangle: false });
+  const __u = bundle
+    .replace(/\s+/g, " ")
+    .replace(/.*function U\(\) {/, "function U() {")
+    .replace(/exports\.U.*/, "")
+    .replace(/\\r/g, "")
+    .replace(/\\n/g, "");
+  const _u = UglifyES.minify(__u, { mangle: false });
   const u = _u.code
-    .replace(/.*U=function\(\){/, "function U(){\n")
-    .replace(/}},function\(module,exports\).*/, "\n}")
+    .replace(/^function U\(\){/, "function U(){\n")
+    .replace(/}$/, "\n}")
     .replace(/exports./g, "")
     .replace(/(var |let |const )/g, "");
   const l = u.split("\n")[1];

@@ -9,17 +9,16 @@
   "author": "ABA",
   "license": "MIT",
   "devDependencies": {
-    "awesome-typescript-loader": "^3.4.1",
+    "awesome-typescript-loader": "^5.0.0",
     "clean-webpack-plugin": "^0.1.18",
     "express": "^4.16.2",
-    "html-webpack-externals-plugin": "^3.7.0",
-    "html-webpack-plugin": "^2.30.1",
+    "html-webpack-plugin": "^3.2.0",
     "node-fetch": "^2.0.0",
     "typescript": "^2.7.2",
     "uglify-es": "^3.3.9",
-    "webpack": "^3.11.0",
-    "webpack-dev-middleware": "^2.0.6",
+    "webpack": "^4.6.0",
+    "webpack-dev-middleware": "^3.1.3",
     "webpack-hot-middleware": "^2.21.0",
-    "ws": "^4.1.0"
+    "ws": "^5.1.1"
   }
 }
