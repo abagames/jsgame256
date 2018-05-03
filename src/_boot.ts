@@ -1,19 +1,5 @@
 import * as g from "./boxpress";
-
-function evalInContext(scr, context) {
-  return new Function("with(this) { return " + scr + "}").call(context);
-}
-
-function captureCanvas() {
-  const canvas = document.createElement("canvas");
-  canvas.width = canvas.height = 200;
-  const context = canvas.getContext("2d");
-  context.fillStyle = colors.background;
-  context.fillRect(0, 0, 200, 200);
-  context.scale(2, 2);
-  context.drawImage(p5Canvas.canvas, 0, 0);
-  return canvas.toDataURL("image/png");
-}
+import * as gcc from "gcc";
 
 function initRepl() {
   console.log("set REPL settings");
@@ -24,7 +10,14 @@ function initRepl() {
   ws.onmessage = m => {
     const data = m.data;
     if (data === "//b") {
-      ws.send(captureCanvas());
+      let capturedData;
+      if (options.isCapturingGif) {
+        const image = gcc.end();
+        capturedData = image.src;
+      } else {
+        capturedData = captureCanvas();
+      }
+      ws.send(capturedData);
     } else if (data === "//p") {
       pause();
       ws.send("//PAUSE");
@@ -68,6 +61,10 @@ function resume() {
   isUpdating = true;
 }
 
+function evalInContext(scr, context) {
+  return new Function("with(this) { return " + scr + "}").call(context);
+}
+
 import * as Tone from "tone";
 declare const range;
 
@@ -85,6 +82,8 @@ const colors = {
   background: "#ECEFF1",
   stroke: "#263238"
 };
+let captureCanvasBack;
+let captureCanvasBackContext;
 
 w.setup = () => {
   const link = document.createElement("link");
@@ -169,7 +168,32 @@ w.setup = () => {
     },
     { passive: false }
   );
+  if ((<any>g).options != null) {
+    setupOptions((<any>g).options);
+  }
 };
+
+let options = {
+  isCapturingGif: false
+};
+
+function setupOptions(_options) {
+  for (let attr in _options) {
+    options[attr] = _options[attr];
+  }
+  if (options.isCapturingGif) {
+    gcc.setOptions({
+      scale: 1,
+      keyCode: null,
+      capturingFps: 60,
+      isAppendingImgElement: false
+    });
+    captureCanvasBack = document.createElement("canvas");
+    captureCanvasBack.width = captureCanvasBack.height = 100;
+    captureCanvasBackContext = captureCanvasBack.getContext("2d");
+    captureCanvasBackContext.fillStyle = colors.background;
+  }
+}
 
 w.draw = () => {
   if (!isUpdating) {
@@ -190,4 +214,20 @@ w.draw = () => {
       highScoreText.innerText = highScore;
     }
   }
+  if (options.isCapturingGif) {
+    captureCanvasBackContext.fillRect(0, 0, 100, 100);
+    captureCanvasBackContext.drawImage(p5Canvas.canvas, 0, 0);
+    gcc.capture(captureCanvasBack);
+  }
 };
+
+function captureCanvas() {
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = 200;
+  const context = canvas.getContext("2d");
+  context.fillStyle = colors.background;
+  context.fillRect(0, 0, 200, 200);
+  context.scale(2, 2);
+  context.drawImage(p5Canvas.canvas, 0, 0);
+  return canvas.toDataURL("image/png");
+}

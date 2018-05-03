@@ -12,13 +12,13 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".js"],
-    modules: ["node_modules"]
+    modules: ["node_modules", "web_modules"]
   },
   module: {
     rules: [
       {
         test: /\.ts$/,
-        exclude: /node_modules/,
+        exclude: /(node_modules|web_modules)/,
         loader: "awesome-typescript-loader"
       }
     ]
