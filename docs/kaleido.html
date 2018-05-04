@@ -3,8 +3,8 @@
 
 <head>
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content='kaleido - jsgame256 (228 / 256)' />
-<meta name="twitter:description" content='clear(),T||(e=A(9).map(_=>[R(99),R(99),R(1)]),fill(9)),e.map(f=>{w=f[1]-50,z=f[0]-50,a=atan2(w,z),d=sqrt(w*w+z*z),g=a-.01*T;A(12).map(i=>{ellipse(cos(a)*d+50,sin(a)*d+50,9),a+=i%2==0?PI/3-2*g:2*g}),(f[1]+=f[2])>150&&(f[1]=-50)})' />
+<meta name="twitter:title" content='kaleido - jsgame256 (213 / 256)' />
+<meta name="twitter:description" content='clear(),T||(e=A(9).map(i=>[R(99),R(9)]),fill(9));l=T*TWO_PI/180;e.map(f=>{w=79*sin(l+f[1]),z=f[0]-50,a=atan2(w,z),d=sqrt(w*w+z*z),g=a-l/6;A(12).map(i=>{ellipse(cos(a)*d+50,sin(a)*d+50,9),a+=i%2==0?PI/3-2*g:2*g})})' />
 <meta name="twitter:image" content='https://abagames.github.io/jsgame256/kaleido.png' />
 
   <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
@@ -21,7 +21,7 @@
 
 <script>
 function U(){
-clear(),T||(e=A(9).map(_=>[R(99),R(99),R(1)]),fill(9)),e.map(f=>{w=f[1]-50,z=f[0]-50,a=atan2(w,z),d=sqrt(w*w+z*z),g=a-.01*T;A(12).map(i=>{ellipse(cos(a)*d+50,sin(a)*d+50,9),a+=i%2==0?PI/3-2*g:2*g}),(f[1]+=f[2])>150&&(f[1]=-50)})
+clear(),T||(e=A(9).map(i=>[R(99),R(9)]),fill(9));l=T*TWO_PI/180;e.map(f=>{w=79*sin(l+f[1]),z=f[0]-50,a=atan2(w,z),d=sqrt(w*w+z*z),g=a-l/6;A(12).map(i=>{ellipse(cos(a)*d+50,sin(a)*d+50,9),a+=i%2==0?PI/3-2*g:2*g})})
 }
 </script>
 <script>
@@ -77,7 +77,7 @@ setup = () => {
   sourceText = document.createElement("div");
   sourceText.style = `top: 93%; left: 50%; width: 512px; 
   text-align: left; word-break: break-all; ${textStyle}`;
-  sourceText.innerText = 'clear(),T||(e=A(9).map(_=>[R(99),R(99),R(1)]),fill(9)),e.map(f=>{w=f[1]-50,z=f[0]-50,a=atan2(w,z),d=sqrt(w*w+z*z),g=a-.01*T;A(12).map(i=>{ellipse(cos(a)*d+50,sin(a)*d+50,9),a+=i%2==0?PI/3-2*g:2*g}),(f[1]+=f[2])>150&&(f[1]=-50)})';
+  sourceText.innerText = 'clear(),T||(e=A(9).map(i=>[R(99),R(9)]),fill(9));l=T*TWO_PI/180;e.map(f=>{w=79*sin(l+f[1]),z=f[0]-50,a=atan2(w,z),d=sqrt(w*w+z*z),g=a-l/6;A(12).map(i=>{ellipse(cos(a)*d+50,sin(a)*d+50,9),a+=i%2==0?PI/3-2*g:2*g})})';
   document.body.appendChild(sourceText);
   const synth = new Tone.PolySynth(4, Tone.Synth, {
     oscillator: {

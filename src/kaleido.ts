@@ -28,21 +28,19 @@ let e;
 export function U() {
   clear();
   if (!T) {
-    e = A(9).map(_ => [R(99), R(99), R(1)]);
+    e = A(9).map(i => [R(99), R(9)]);
     fill(9);
   }
+  let l = T * TWO_PI / 180;
   e.map(f => {
-    let w = f[1] - 50;
+    let w = sin(l + f[1]) * 79;
     let z = f[0] - 50;
     let a = atan2(w, z);
     let d = sqrt(w * w + z * z);
-    let g = a - T * 0.01;
+    let g = a - l / 6;
     A(12).map(i => {
       ellipse(cos(a) * d + 50, sin(a) * d + 50, 9);
       a += i % 2 == 0 ? PI / 3 - g * 2 : g * 2;
     });
-    if ((f[1] += f[2]) > 150) {
-      f[1] = -50;
-    }
   });
 }
