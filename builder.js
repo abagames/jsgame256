@@ -20,13 +20,20 @@ function writeDataUrl(dataUrl, filename) {
   const ext = matches[1];
   const data = matches[2];
   const buffer = new Buffer(data, "base64");
-  fs.writeFileSync(`${filename}.${ext}`, buffer);
+  const imageFileName = `${filename}.${ext}`;
+  fs.writeFileSync(imageFileName, buffer);
+  return imageFileName;
 }
 
 function buildHtml(captureDataUrl) {
   const boot = fs.readFileSync("./src/_boot.ts", "utf-8");
   const title = boot.match(/import \* as g from ".\/([a-zA-Z0-9_.-]*)"/)[1];
   console.log(`\nBuild: ${title}.html`);
+
+  let imageFileName;
+  if (captureDataUrl != null) {
+    imageFileName = writeDataUrl(captureDataUrl, `./docs/${title}`);
+  }
 
   const path = require("path");
   const shorten = require(path.resolve(__dirname, "shortener.js"));
@@ -74,16 +81,12 @@ ${setupDraw}
 <meta name="twitter:description" content='${el}' />
 ${
     captureDataUrl != null
-      ? `<meta name="twitter:image" content='${imageUrl}${title}.png' />`
+      ? `<meta name="twitter:image" content='${imageUrl}${imageFileName}' />`
       : ""
   }
 ${index.substr(headIndex)}`;
 
   fs.writeFileSync(`./docs/${title}.html`, index);
-
-  if (captureDataUrl != null) {
-    writeDataUrl(captureDataUrl, `./docs/${title}`);
-  }
 }
 
 module.exports.build();
