@@ -68,7 +68,7 @@ ${setupDraw}
 </script>
 </body>
 </html>`.replace(
-    "<title>jsgame256</title>",
+    /<title>\s*jsgame256\s*<\/title>/,
     `<title>${title} - jsgame256</title>`
   );
 
