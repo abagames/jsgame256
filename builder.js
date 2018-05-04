@@ -15,13 +15,13 @@ module.exports.build = function(captureDataUrl) {
   });
 };
 
-function writeDataUrl(dataUrl, filename) {
+function writeDataUrl(dataUrl, path, filename) {
   const matches = dataUrl.match(/^data:.+\/(.+);base64,(.*)$/);
   const ext = matches[1];
   const data = matches[2];
   const buffer = new Buffer(data, "base64");
   const imageFileName = `${filename}.${ext}`;
-  fs.writeFileSync(imageFileName, buffer);
+  fs.writeFileSync(`${path}${imageFileName}`, buffer);
   return imageFileName;
 }
 
@@ -32,7 +32,7 @@ function buildHtml(captureDataUrl) {
 
   let imageFileName;
   if (captureDataUrl != null) {
-    imageFileName = writeDataUrl(captureDataUrl, `./docs/${title}`);
+    imageFileName = writeDataUrl(captureDataUrl, "./docs/", title);
   }
 
   const path = require("path");
