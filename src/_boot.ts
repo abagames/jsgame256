@@ -172,20 +172,27 @@ w.setup = () => {
 };
 
 let options = {
-  isCapturingGif: false
+  isCapturingGif: false,
+  gccOptions: {
+    scale: 1,
+    keyCode: null,
+    capturingFps: 60,
+    isAppendingImgElement: false
+  }
 };
 
 function setupOptions(_options) {
   for (let attr in _options) {
-    options[attr] = _options[attr];
+    if (attr === "gccOptions") {
+      for (let attr in _options.gccOptions) {
+        options.gccOptions[attr] = _options.gccOptions[attr];
+      }
+    } else {
+      options[attr] = _options[attr];
+    }
   }
   if (options.isCapturingGif) {
-    gcc.setOptions({
-      scale: 1,
-      keyCode: null,
-      capturingFps: 60,
-      isAppendingImgElement: false
-    });
+    gcc.setOptions(options.gccOptions);
     captureCanvasBack = document.createElement("canvas");
     captureCanvasBack.width = captureCanvasBack.height = 100;
     captureCanvasBackContext = captureCanvasBack.getContext("2d");

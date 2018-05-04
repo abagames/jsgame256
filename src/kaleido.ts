@@ -20,7 +20,10 @@ declare let S: number;
 declare let T: number;
 
 export let options = {
-  isCapturingGif: true
+  isCapturingGif: true,
+  gccOptions: {
+    scale: 2
+  }
 };
 
 let e;
