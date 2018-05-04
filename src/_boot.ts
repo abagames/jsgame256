@@ -168,7 +168,7 @@ w.setup = () => {
     },
     { passive: false }
   );
-  setupOptions(g.options);
+  setupOptions((<any>g).options);
 };
 
 let options = {

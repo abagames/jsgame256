@@ -39,7 +39,7 @@ function buildHtml(captureDataUrl) {
     .substr(boot.indexOf("let isEmptySoundPlayed = false;"))
     .replace(/w\./g, "")
     .replace("g.U()", "U()")
-    .replace("g.options", "options")
+    .replace("(<any>g).options", "options")
     .replace('sourceText.innerText = ""', `sourceText.innerText = '${el}'`);
 
   const template = fs.readFileSync("./tmp/index.html", "utf-8");
