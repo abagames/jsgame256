@@ -1,74 +1,28 @@
-import * as g from "./pillars";
-import * as gcc from "gcc";
+<!DOCTYPE html>
+<html>
 
-function initRepl() {
-  console.log("set REPL settings");
-  const ws = new WebSocket("ws://localhost:8887");
-  ws.onopen = () => {
-    ws.send("REPL connecting to browser");
-  };
-  ws.onmessage = m => {
-    const data = m.data;
-    if (data === "//b") {
-      let capturedData;
-      if (options.isCapturingGif) {
-        const image = gcc.end();
-        capturedData = image.src;
-      } else {
-        capturedData = captureCanvas();
-      }
-      ws.send(capturedData);
-    } else if (data === "//p") {
-      pause();
-      ws.send("//PAUSE");
-    } else if (data === "//r") {
-      resume();
-      ws.send("//RESUME");
-    } else if (data === "//s") {
-      pause();
-      g.U();
-      ws.send("//STEP");
-    } else {
-      console.log(`[REPL] ${data}`);
-      let result;
-      try {
-        const evalResult = evalInContext(data, g);
-        try {
-          result = JSON.stringify(evalResult);
-        } catch (e) {}
-      } catch (e) {
-        result = e;
-      }
-      console.log(result);
-      ws.send(result);
-    }
-  };
-  ws.onerror = e => {
-    console.log(e);
-  };
-  window.addEventListener("beforeunload", () => {
-    ws.close();
-  });
+<head>
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content='pillars - jsgame256 (223 / 256)' />
+<meta name="twitter:description" content='clear(),A(100).map(i=>{w=i%10,q=floor(i/10),x=14*w+q%2*7,a=T/180*TWO_PI+i,y=10*q-sin(a)*cos(a)*39;push(),translate(x,y),fill(222,99*cos(a)+99,99*sin(a)+99),rect(-7,0,13.3,99),rotate(PI/4),fill(222),rect(-5,-5,10,10),pop()})' />
+<meta name="twitter:image" content='https://abagames.github.io/jsgame256/pillars.gif' />
+
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title>pillars - jsgame256</title>
+  <script src="https://unpkg.com/p5@0.6.0/lib/p5.min.js"></script>
+  <script src="https://unpkg.com/tone@0.11.11/build/Tone.min.js"></script>
+<script>var module = {exports:{}};</script>
+  <script src="https://unpkg.com/lodash.range@3.2.0/index.js"></script>
+</head>
+
+<body>
+
+<script>
+function U(){
+clear(),A(100).map(i=>{w=i%10,q=floor(i/10),x=14*w+q%2*7,a=T/180*TWO_PI+i,y=10*q-sin(a)*cos(a)*39;push(),translate(x,y),fill(222,99*cos(a)+99,99*sin(a)+99),rect(-7,0,13.3,99),rotate(PI/4),fill(222),rect(-5,-5,10,10),pop()})
 }
-
-initRepl();
-
-function pause() {
-  isUpdating = false;
-}
-
-function resume() {
-  isUpdating = true;
-}
-
-function evalInContext(scr, context) {
-  return new Function("with(this) { return " + scr + "}").call(context);
-}
-
-import * as Tone from "tone";
-declare const range;
-
-const w: any = window;
+</script>
+<script>
 let isEmptySoundPlayed = false;
 let p5Canvas;
 let canvasBack;
@@ -85,7 +39,7 @@ const colors = {
 let captureCanvasBack;
 let captureCanvasBackContext;
 
-w.setup = () => {
+setup = () => {
   const link = document.createElement("link");
   link.href = "https://fonts.googleapis.com/css?family=Roboto+Mono";
   link.rel = "stylesheet";
@@ -121,7 +75,7 @@ w.setup = () => {
   sourceText = document.createElement("div");
   sourceText.style = `top: 93%; left: 50%; width: 512px; 
   text-align: left; word-break: break-all; ${textStyle}`;
-  sourceText.innerText = "";
+  sourceText.innerText = 'clear(),A(100).map(i=>{w=i%10,q=floor(i/10),x=14*w+q%2*7,a=T/180*TWO_PI+i,y=10*q-sin(a)*cos(a)*39;push(),translate(x,y),fill(222,99*cos(a)+99,99*sin(a)+99),rect(-7,0,13.3,99),rotate(PI/4),fill(222),rect(-5,-5,10,10),pop()})';
   document.body.appendChild(sourceText);
   const synth = new Tone.PolySynth(4, Tone.Synth, {
     oscillator: {
@@ -129,11 +83,11 @@ w.setup = () => {
       partials: [0, 2, 3, 4]
     }
   }).chain(new Tone.Volume(-16), Tone.Master);
-  w.R = random;
-  w.N = synth.triggerAttackRelease.bind(synth);
-  w.A = range;
-  w.S = 0;
-  w.T = 0;
+  R = random;
+  N = synth.triggerAttackRelease.bind(synth);
+  A = range;
+  S = 0;
+  T = 0;
   document.addEventListener(
     "touchstart",
     e => {
@@ -168,7 +122,7 @@ w.setup = () => {
     },
     { passive: false }
   );
-  setupOptions((<any>g).options);
+  setupOptions(options);
 };
 
 let options = {
@@ -200,22 +154,22 @@ function setupOptions(_options) {
   }
 }
 
-w.draw = () => {
+draw = () => {
   if (!isUpdating) {
     return;
   }
-  w.M = mouseIsPressed;
-  w.X = mouseX;
-  w.Y = mouseY;
-  g.U();
-  w.T++;
-  if (!isShowingScore && w.S !== 0) {
+  M = mouseIsPressed;
+  X = mouseX;
+  Y = mouseY;
+  U();
+  T++;
+  if (!isShowingScore && S !== 0) {
     isShowingScore = true;
   }
   if (isShowingScore) {
-    scoreText.innerText = w.S;
-    if (w.S > highScore) {
-      highScore = w.S;
+    scoreText.innerText = S;
+    if (S > highScore) {
+      highScore = S;
       highScoreText.innerText = highScore;
     }
   }
@@ -236,3 +190,7 @@ function captureCanvas() {
   context.drawImage(p5Canvas.canvas, 0, 0);
   return canvas.toDataURL("image/png");
 }
+
+</script>
+</body>
+</html>
