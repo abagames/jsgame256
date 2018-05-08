@@ -1,6 +1,4 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
 const webpack = require("webpack");
 
 module.exports = {
@@ -27,12 +25,5 @@ module.exports = {
     p5: "p5",
     tone: "Tone"
   },
-  plugins: [
-    new CleanWebpackPlugin(["tmp"]),
-    new HtmlWebpackPlugin({
-      title: "jsgame256",
-      template: "template.html"
-    }),
-    new webpack.HotModuleReplacementPlugin()
-  ]
+  plugins: [new webpack.HotModuleReplacementPlugin()]
 };

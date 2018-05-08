@@ -46,6 +46,7 @@ function reporter(middlewareOptions, options) {
   }
 }
 
+app.use(express.static(__dirname + "/static"));
 app.use(webpackDevMiddleware(compiler, { reporter }));
 app.use(webpackHotMiddleware(compiler));
 
