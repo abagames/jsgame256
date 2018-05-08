@@ -16,9 +16,11 @@ module.exports.build = function(captureDataUrl) {
 };
 
 function writeDataUrl(dataUrl, path, filename) {
-  const matches = dataUrl.match(/^data:.+\/(.+);base64,(.*)$/);
-  const ext = matches[1];
-  const data = matches[2];
+  const di = dataUrl.indexOf("data:");
+  const bi = dataUrl.indexOf(";base64,");
+  const ds = dataUrl.substring(di + 5, bi);
+  const ext = ds.substr(ds.indexOf("/") + 1);
+  const data = dataUrl.substr(bi + 8);
   const buffer = new Buffer(data, "base64");
   const imageFileName = `${filename}.${ext}`;
   fs.writeFileSync(`${path}${imageFileName}`, buffer);
@@ -49,17 +51,14 @@ function buildHtml(captureDataUrl) {
     .replace("(<any>g).options", "options")
     .replace('sourceText.innerText = ""', `sourceText.innerText = '${el}'`);
 
-  const template = fs.readFileSync("./tmp/index.html", "utf-8");
+  const template = fs.readFileSync("./static/index.html", "utf-8");
   const toneStr = 'Tone.min.js"></script>';
   const toneIndex = template.indexOf(toneStr) + toneStr.length;
 
   let index = `${template.substr(0, toneIndex)}
 <script>var module = {exports:{}};</script>${template.substr(toneIndex)}`;
 
-  index = `${index.substr(
-    0,
-    index.indexOf('<script type="text/javascript" src="bundle.js">')
-  )}
+  index = `${index.substr(0, index.indexOf('<script src="bundle.js">'))}
 <script>
 ${u}
 </script>
