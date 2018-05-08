@@ -5,8 +5,8 @@ module.exports = function shorten(bundle) {
     .replace(/\s+/g, " ")
     .replace(/.*function U\(\) {/, "function U() {")
     .replace(/exports\.U.*/, "")
-    .replace(/\\r/g, "")
-    .replace(/\\n/g, "");
+    .replace(/\/\/.*?\\n\*/g, "")
+    .replace(/(\\r|\\n)/g, "");
   const _u = UglifyES.minify(__u, { mangle: false });
   const u = _u.code
     .replace(/^function U\(\){/, "function U(){\n")
