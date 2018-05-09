@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "Write a JavaScript game in 256 letters",
   "scripts": {
-    "start": "node devserver.js",
-    "build": "node builder.js"
+    "start": "node devserver.js"
   },
   "author": "ABA",
   "license": "MIT",

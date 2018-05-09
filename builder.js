@@ -87,5 +87,3 @@ ${index.substr(headIndex)}`;
 
   fs.writeFileSync(`./docs/${title}.html`, index);
 }
-
-module.exports.build();
