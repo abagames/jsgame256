@@ -27,7 +27,7 @@ declare let S: number;
 declare let T: number;
 ```
 
-## Samples
+## Sample games
 
 Click the image to play.
 
@@ -46,6 +46,11 @@ Click the image to play.
 <a href="https://abagames.github.io/jsgame256/piyopoyon.html"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/piyopoyon.png" alt="piyopoyon" align="left"></a>
 
 <a href="https://abagames.github.io/jsgame256/sinebomb.html"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/sinebomb.png" alt="sinebomb"></a>
+
+## Sample not games
+
+<a href="https://abagames.github.io/jsgame256/kaleido.html"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/kaleido.gif" alt="pillars"></a>
+<a href="https://abagames.github.io/jsgame256/pillars.html"><img src="https://raw.githubusercontent.com/abagames/jsgame256/master/docs/pillars.gif" alt="pillars"></a>
 
 ## Create your own game
 
